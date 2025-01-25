@@ -1,0 +1,275 @@
+#------------------------------------#
+#          COLUMN CATEGORIES         #
+#------------------------------------#
+
+categories:
+  - name: "all"
+    display-name: "All integration tables"
+    description: |
+      These columns are applicable to all tables and integration types. Unless noted, every column in this list will be present in every integration table created by Stitch.
+
+      **Note:** These columns aren't applicable to system tables.
+
+  - name: "subtables"
+    display-name: "Subtables"
+    description: |
+      These columns are applicable to integration subtables created by Stitch. Subtables are created when Stitch loads nested data into a destination that doesn't support nested data structures. Refer to the [Nested JSON Data Structures and Row Count Impact]({{ link.destinations.storage.nested-structures | prepend: site.baseurl }}) guide for more info and examples.
+
+  - name: "databases"
+    display-name: "Database integrations"
+    description: |
+      These columns are applicable only to database integrations.
+
+  - name: "saas"
+    display-name: "SaaS integrations"
+    description: |
+      These columns are applicable only to SaaS integrations.
+
+#------------------------------------#
+#       CURRENT SYSTEM COLUMNS       #
+#------------------------------------#
+
+# As part of the replication process, Stitch injects a few system
+# columns into every table it creates in a destination.
+
+# Below is a mapping of the current system columns and their descriptions.
+
+# Should a system column name or function change, this is the section that must be updated.
+
+current-columns:
+  prefix: "_sdc"
+  rjm-prefix: "_rjm"
+
+# DELETED_AT
+  deleted-at: &deleted-at "_sdc_deleted_at"
+  deleted-at-description: &deleted-at-description |
+    **Applicable only to database integrations that support Log-based Replication.** Timestamp indicating when Stitch detected a `DELETE` event for the record while reading from the database's binary log. Otherwise, this field will be null.
+
+    Additionally, this column will not populate until after the initial historical replication job has been completed. Stitch can only detect delete row events while reading from binary logs, which are not used during initial replication jobs.
+
+    **Note**: Only certain event types are supported for Log-based Replication. Refer to the [Deleted record handling]({{ link.replication.deleted-records | prepend: site.baseurl }}) guide for more info.
+
+# EXTRACTED_AT
+  extracted-at: &extracted-at "_sdc_extracted_at"
+  extracted-at-description: &extracted-at-description |
+    **Applicable only to certain Singer-backed integrations.** Timestamp indicating when Stitch extracted the record from the source.
+
+  extra: &extra "_sdc_extra"
+  extra-description: &extra-description |
+    {% assign amazon-s3-docs = site.database-integrations | find:"key","amazon-s3-csv-integration" %}
+    **Applicable only to Amazon S3 CSV integrations.** An array of strings containing:
+
+    - Key-value pairs of duplicate columns, and/or
+    - Extra values in a record that aren't associated with a column
+
+    Refer to the [Amazon S3 CSV documentation]({{ amazon-s3-docs.url | prepend: site.baseurl }}#loading--handling-duplicate-column-headers) for more info.
+
+# RECEIVED_AT
+  received-at: &received-at "_sdc_received_at"
+  received-at-description: &received-at-description |
+    Timestamp indicating when Stitch received the record for loading.
+
+# BATCHED_AT
+  batched-at: &batched-at "_sdc_batched_at"
+  batched-at-description: &batched-at-description |
+    Timestamp indicating when Stitch loaded the batch the record was a part of into the destination.
+
+# SEQUENCE
+  sequence: &sequence "_sdc_sequence"
+  sequence-description: &sequence-description |
+    A Unix epoch (in nanoseconds) that indicates the order in which data points were considered for loading.
+
+# TABLE_VERSION
+  table-version: &table-version "_sdc_table_version"
+  table-version-description: &table-version-description |
+    Indicates the version of the table. This column is used to determine when to issue `TRUNCATE` commands during loading, where applicable.
+
+# SOURCE KEY
+  source-key: &source-key "_sdc_source_key_"
+  source-key-description: &source-key-description |
+    Forms part of a composite Primary Key for the table. It contains the top level table's Primary Key and will also inherit the Primary Key's data type.
+
+    For example: There is a top-level table (`orders`) with a Primary Key of `order_id` (`INTEGER`). If a subtable were created from `orders`, this column would be named `{{ system-column.source-key | append:"order_id" }}`, be typed as an `INTEGER`, and contain the same values.
+
+# LEVEL ID
+  level-id: &level-id "_sdc_level_#_id"
+  level-id-description: &level-id-description |
+    Forms part of a composite Primary Key for the table and can be used to associate further nested records to the parent.
+
+    Values in this column will auto-increment for each unique record in the table, beginning with 0. When used with the `{{ system-column.source-key }}[name]` column(s), a unique identifier for the row is created.
+
+    Depending on the level of nesting, there may be multiple `{{ system-column.level-id | remove: "_#" }}` columns in a subtable.
+
+# PRIMARY_KEY
+  primary-key: &primary-key "__sdc_primary_key"
+  primary-key-description: &primary-key-description |
+    **Applicable only if Stitch doesn't detect a Primary Key in the source table.** Stitch will use this column to de-dupe data.
+
+# REPLICATION_ID
+  replication-id: &replication-id "_sdc_replication_id"
+  replication-id-description: &replication-id-description |
+    Contains an auto-generated ID that Stitch injects when a Primary Key isn't detected. Stitch will use this column to de-dupe data.
+
+# CUSTOMER ID
+  customer-id: &customer-id "_sdc_customer_id"
+  customer-id-description: &customer-id-description |
+    **Applicable only to Google Ads integrations,** this column contains the Ads Account ID the data in the row pertains to.
+
+    For example: The `ad_performance_report` table may contain data from several Ads accounts. The value in the `_sdc_customer_id` column allows you to associate records with the correct Ads account.
+
+# DIMENSION HASH KEY
+  dimension-hash-key: &dimension-hash-key "_sdc_dimensions_hash_key"
+  dimension-hash-key-description: &dimension-hash-key-description |
+    **Applicable only to Twitter Ads integrations,** this column is a a Stitch-generated MD5 hash that should be used as a Primary Key in tables created using the **Custom reports** feature.
+
+    The hash consists of a UTF-8 encoded JSON list containing of the [report's dimensions](https://github.com/singer-io/tap-twitter-ads/blob/master/tap_twitter_ads/transform.py#L76){:target="new"}.
+
+# RECORD HASH
+  record-hash: &record-hash "_sdc_record_hash"
+  record-hash-description: &record-hash-description |
+    **Applicable only to Google Analytics (v1), Google Ads (v1) and NetSuite Suite Analytics integrations,** this column is a Stitch-generated SHA 256 hash that should be used as a Primary Key. 
+
+    **For Google Analytics integrations**, the hash consists of a UTF-8 encoded JSON list containing:
+
+    - The account ID, web property ID, and profile ID of the associated report
+    - Pairs of `ga:dimension_name` and `dimension_value`
+    - The `start_date` and `end_date` values for the record, in `YYYY-mm-dd` format
+
+    **For Google Ads integrations**, the hash consists of a UTF-8 encoded JSON list containing the segments and attributes in the report.
+
+    **For NetSuite Suite Analytics integrations**, the hash consists of the values of the columns designated as Primary Keys by NetSuite for the table.
+
+  record-hash-netsuite-suite-analytics: |
+    A Stitch-generated SHA 256 hash that should be used as a Primary Key. The hash consists of a UTF-8 encoded JSON list containing the values of the columns designated as the table's Primary Keys by NetSuite.
+
+  record-hash-google-ads: |
+    A Stitch-generated SHA 256 hash that should be used as a Primary Key. The hash consists of a UTF-8 encoded JSON list containing  the names and values of the dimensions in the report.
+
+# REPORT DATE TIME
+  report-date-time: &report-date-time "_sdc_report_datetime"
+  report-date-time-description: &report-date-time-description |
+    **Applicable only to Google Ads and Campaign Manager inetgrations,** this column indicates the starting time of the Stitch job that extracted the relevant row's data.
+
+# SOURCE FILE
+  source-file: &source-file "_sdc_source_file"
+  source-file-description: &source-file-description |
+    **Applicable only to Intacct and Responsys integrations**, this column contains the file path on the SFTP server of the table's source file.
+
+# SOURCE LINENO
+  source-lineno: &source-lineno "_sdc_source_lineno"
+  source-lineno-description: &source-lineno-description |
+    **Applicable only to Intacct and Responsys integrations**, this column contains the row number for the record in the source file.
+
+# Optional column description
+
+  optional-column-description: &optional-column-description "Optional column selected by you."
+
+#------------------------------------#
+#           LIST OF COLUMNS          #
+#------------------------------------#
+
+# The below list enables the use of a forloop to pull the name and description of all the current system
+# columns. With the exception of the the column's data type and sample data, all info is directly pulled
+# from the mapping above using YAML references. 
+
+# Should a system column name or function change, only the corresponding items in the CURRENT COLUMNS section
+# above need to be updated. Any changes made there will be automatically reflected in this list.
+
+# name: column name
+# type: column's data type
+# category: some columns are applicable only to certain types of tables or integrations. this indicates the applicable type of table or integration.
+# description: column description
+
+all:
+  - name: *extracted-at
+    type: "timestamp"
+    description: *extracted-at-description
+    data: "2019-08-08 14:52:05.773+00"
+
+  - name: *received-at
+    type: "timestamp"
+    description: *received-at-description
+    data: "2019-08-08 14:54:39.109+00"
+
+  - name: *batched-at
+    type: "timestamp"
+    description: *batched-at-description
+    data: "2019-08-08 14:55:08.82+00"
+
+  - name: *sequence
+    type: "integer"
+    description: *sequence-description
+    data: "1565276078922000095"
+
+  - name: *table-version
+    type: "integer"
+    description: *table-version-description
+    data: "0"
+
+  - name: *primary-key
+    type: "string"
+    description: *primary-key-description
+    data: "5d8b9a05-33cc-4d5f-8163-4474814b46c6"
+
+subtables:
+  - name: |
+      {{ system-column.source-key }}[name]
+    type: "varies"
+    description: *source-key-description
+    data: "885035841"
+
+  - name: *level-id
+    type: "integer"
+    description: *level-id-description
+    data: "0"
+
+databases:
+  - name: *replication-id
+    type: "string"
+    applicable-to: "All database"
+    description: *replication-id-description
+    data: "87329b9c-c61f-4c45-847b-407ee8bab7bd"
+
+  - name: *source-file
+    type: "string"
+    applicable-to: "Intacct and Responsys"
+    description: *source-file-description
+    data: "store/customers.csv"
+
+  - name: *source-lineno
+    type: "integer"
+    applicable-to: "Intacct and Responsys"
+    description: *source-lineno-description
+    data: "5"
+
+  - name: *deleted-at
+    type: "timestamp"
+    applicable-to: "All database"
+    description: *deleted-at-description
+    data: "2019-08-08 14:49:38.593+00"
+
+  - name: *extra
+    type: "string"
+    applicable-to: "Amazon S3 CSV"
+    description: *extra-description
+    data: |
+      [{"name":"Jake the human"},{"no_headers":["16"]}]
+
+saas:
+  - name: *customer-id
+    type: "string"
+    applicable-to: "Google Ads"
+    description: *customer-id-description
+    data: "4224806558"
+
+  - name: *record-hash
+    type: "string"
+    applicable-to: "Google Analytics (v1)"
+    description: *record-hash-description
+    data: "070265d7b7de40082271712d39839cbde58f135e5145d919856aa6737816becc"
+
+  - name: *report-date-time
+    type: "date-time"
+    applicable-to: "Google Ads and Campaign Manager"
+    description: *report-date-time-description
+    data: "2019-08-08 14:49:38.593+00"

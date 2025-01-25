@@ -1,0 +1,22 @@
+# -------------------------- #
+#    STANDARD PLAN DETAILS   #
+# -------------------------- #
+
+name: "Standard"
+
+paid: true
+type: "self-serve"
+
+integrations: "all"
+total-integrations: "Up to 10"
+
+users: "5"
+rows: "Varies"
+logs: "7 days"
+reports: "7 days"
+
+api-access: false
+customize-notifications: false
+post-load-notifications: false
+cron-scheduling: false
+single-sign-on: true
