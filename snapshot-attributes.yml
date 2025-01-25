@@ -1,0 +1,89 @@
+# -------------------------- #
+#      SNAPSHOT FIELDS       #
+# -------------------------- #
+
+## This file contains:
+
+## 1. A list of attributes - such as availability, release status, etc -
+## that are pertinent to different integrations.
+## 2. A list of field names and values that are used in *table* snapshots.
+
+## Different integration types (ex: database vs. SaaS) can have different attributes.
+
+## Variable reference:
+
+## display_name: The name of the attribute as it should display in the docs
+##
+##         name: The attribute ID, or key. This should match whatever the 
+##               variable is in the integration docs. Ex: status is used to indicate
+##               the release status of the integration.
+## 
+##     category: The category the feature is a part of. Ex: Replication.
+##
+##     doc-link: If applicable, the URL or /_data/urls.yml [link.[thing].[thing]] 
+##               value of the documentation page for the attribute. Note: If 
+##               using urls.yml, the "prepend: site.baseurl" filter must be included.
+##
+##      tooltip: If applicable, the tooltip that describes the attribute. Tooltip
+##               copy lives in _data/tooltips.yml.
+
+
+## These are the field names and formatted values for *table* snapshots.
+## Used in: _includes/integrations/templates/schemas/table-snapshot.html
+
+field-names:
+  replication-method: | 
+    Replication Method <a href="{{ link.replication.rep-methods | prepend: site.baseurl }}" target="new">{{ info-icon | replace:"TOOLTIP","Defines how Stitch extracts data from a source. Click here for more details." }}</a>
+  primary-key: "Primary Key {{ ui-icon.primary-key | flatify }}"
+  primary-keys: "Primary Keys {{ ui-icon.primary-key | flatify }}"
+  replication-key: "Replication Key {{ ui-icon.replication-key | flatify }}"
+  replication-keys: "Replication Keys {{ ui-icon.replication-key | flatify }}"
+  loading-behavior: |
+    Loading Behavior <a href="{{ link.destinations.storage.loading-behavior | prepend: site.baseurl }}" target="new">{{ info-icon | replace:"TOOLTIP","Defines how Stitch loads data into a destination. Click here for more details." }}</a>
+  api-endpoint: "API endpoint"
+  api-method: "{{ integration.display_name }} API method"
+  doc-link: "{{ integration.display_name }} documentation"
+  singer-schema: "{{ table.name }} schema on GitHub"
+
+field-values:
+  replication-method: "{{ table.replication-method | flatify }}"
+
+  primary-key: |
+    {{ primary-keys | strip }}
+
+  replication-key: |
+    {{ replication-keys | strip }} {% if table.replication-key.name %}{{ info-icon | replace:"TOOLTIP",table.replication-key.tooltip }}{% endif %}
+
+  loading-behavior: |
+    {% assign loading-behavior = table.loading-behavior | slugify %}
+    
+    <a href="{{ link.destinations.storage.loading-behavior | prepend: site.baseurl | append: "#loading-behavior-types--" | append: loading-behavior }}">{{ table.loading-behavior }}</a>
+
+  api-endpoint: |
+    <a href="{{ table.api-method.doc-link | flatify }}" title="Opens in new window: {{ integration.display_name }} {{ table.name }} API documentation" target="new">{{ table.api-method.name }}</a>
+
+  doc-link: |
+    <a href="{{ table.doc-link | flatify }}" title="Opens in new window: {{ integration.display_name }} {{ table.name }} documentation" target="new">Official Docs</a>
+
+full-table:
+  - name: "replication-method"
+  - name: "primary-key"
+
+key-based-incremental:
+  - name: "replication-method"
+  - name: "replication-key"
+  - name: "primary-key"
+
+append-only-incremental:
+  - name: "replication-method"
+  - name: "replication-key"
+  - name: "primary-key"
+
+loading-field:
+  - name: "loading-behavior"
+
+api-field:
+  - name: "api-endpoint"
+
+doc-link-field:
+  - name: "doc-link"
