@@ -1,0 +1,220 @@
+# -------------------------- #
+#  DATABASE FORM PROPERTIES  #
+# -------------------------- #
+
+# This file contains the fields that are common to database source connections.
+
+# -------------------------- #
+#   COMMON TO ALL DATABASES  #
+# -------------------------- #
+
+all-databases:
+  - name: "host"
+    required: true
+    read-only: false
+    internal: false
+    type: "string"
+    description: "The IP address or hostname of the database server."
+    value: "<HOST_ADDRESS>"
+
+  - name: "port"
+    required: true
+    read-only: false
+    internal: false
+    type: "integer"
+    description: "The port of the database server. The default is `{{ port }}`."
+    value: "{{ port }}"
+
+  - name: "user"
+    required: true
+    read-only: false
+    internal: false
+    type: "string"
+    description: "The username of the {{ integration }} database user."
+    value: "<USERNAME>"
+
+  - name: "password"
+    required: true
+    read-only: false
+    internal: false
+    type: "string"
+    description: "The password for the user connecting to the database server. **Note**: This property will never be returned by the API, but it can be submitted when creating or modifying a connection."
+    value: "<PASSWORD>"
+
+
+# -------------------------- #
+#      MYSQL DATABASES       #
+# -------------------------- #
+
+mysql:
+## TODO: Address this when we start moving over branded MySQL to the API for v2.
+  - name: |
+      {% if form-property.api-type == "platform.hp-mysql" %}dbname{% else %}database{% endif %}
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: &database-description "The name of the logical database to connect to."
+    value: "<DATABASE_NAME>"
+
+
+# -------------------------- #
+#    POSTGRESQL DATABASES    #
+# -------------------------- #
+
+postgres:
+  - name: "dbname"
+    required: true
+    read-only: false
+    internal: false
+    type: "string"
+    description: *database-description
+    value: "<DATABASE_NAME>"
+
+  - name: &filterdbs-name "filter_dbs"
+    required: true
+    read-only: false
+    internal: true
+    type: "string"
+    description: &internal-field "**This is an internal field and is for Stitch use only.**"
+    value: ""
+
+  - name: "include_schemas_in_destination_stream_name"
+    required: true
+    read-only: false
+    internal: false
+    type: "string"
+    description: |
+      If `true`, the name of the source schema will be included in the destination table name. For example: `<source_schema_name>__<table_name>`. This can help prevent table name collisions when two tables canonicalize to the same name.
+
+      For more info, refer to the [Database Integration Table Name Collisions guide]({{ link.troubleshooting.database-table-name-collisions | prepend: site.baseurl }}).
+    value: "false"
+
+  - name: "itersize"
+    required: true
+    read-only: false
+    internal: true
+    type: "string"
+    description: *internal-field
+    value: ""
+
+
+# -------------------------- #
+#    SQL SERVER DATABASES    #
+# -------------------------- #
+
+mssql:
+  - name: "database"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: *database-description
+    value: "<DATABASE_NAME>"
+
+# -------------------------- #
+#       FEATURE FIELDS       #
+# -------------------------- #
+
+# These fields are specific to databases that support certain features.
+# The properties listed here will only display for a form property if
+# The corresponding doc for that database has a `true` flag for that feature.
+
+
+# -------------------------- #
+#     BINLOG REPLICATION     #
+# -------------------------- #
+
+binlog-replication:
+  - name: "use_log_based_replication"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: |
+      If `true`, Log-based Incremental Replication will be used as the default Replication Method for tables set to replicate. This choice can be overriden on individual tables at any time.
+    value: "true"
+    database: "mysql, mssql, postgres"
+
+  - name: "server_id"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: |
+      Defines the unique ID of the server that Stitch will connect to, if using Log-based (binlog) Replication.
+
+      Server IDs must be unique, as MySQL doesn't allow replication to simultaneously occur across multiple connections using the same server ID. For more info about this setting in Stitch, refer to the [MySQL documentation]({{ site.baseurl }}/integrations/databases/mysql#server-id){:target="new"}.
+    value: "<UNIQUE_SERVER_ID>"
+    database: "mysql"
+
+  - name: "debug_lsn"
+    required: false
+    read-only: false
+    internal: true
+    type: "string"
+    description: *internal-field
+    value: ""
+    database: "postgres"
+
+  - name: "logical_poll_total_seconds"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: |
+      The total amount of time, in seconds, that the integration should be allowed to poll for records while performing Log-based Incremental Replication.
+    value: "1800"
+    database: "postgres"
+
+
+# -------------------------- #
+#            SSL             #
+# -------------------------- #
+
+ssl:
+  - name: "ssl"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: "If `true`, SSL will be used to connect to the database."
+    value: "false"
+
+
+# -------------------------- #
+#            SSH             #
+# -------------------------- #
+
+ssh:
+  - name: "ssh"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: "If `true`, an SSH tunnel will be used to connect to the database."
+    value: "true"
+
+  - name: "ssh_host"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: "The IP address or hostname of the SSH server. This property is only required if `ssh: true`."
+    value: "<SSH_HOST>"
+
+  - name: "ssh_port"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: "The port of the SSH server. This property is only required if `ssh: true`."
+    value: "22"
+
+  - name: "ssh_user"
+    required: false
+    read-only: false
+    internal: false
+    type: "string"
+    description: "The username of the SSH user. This property is only required if `ssh: true`."
+    value: "<SSH_USERNAME>"

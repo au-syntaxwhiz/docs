@@ -1,0 +1,103 @@
+# -------------------------- #
+#    COMMON SOURCE FIELDS    #
+# -------------------------- #
+
+# This file contains the fields that are common to all source connections.
+
+names:
+  anchor-time: &anchor-time "anchor_time"
+  frequency: &frequency "frequency_in_minutes"
+  advanced: &advanced "cron_expression"
+  start-date: &start-date "start_date"
+
+guide-callout: |
+  Refer to the [Replication Scheduling for API sources guide]({{ link.connect.guides.replication-scheduling-for-sources | prepend: site.baseurl }}) for more info about replication scheduling using the API.
+
+fields:
+  - name: *anchor-time
+    type: "string"
+    required: false
+    internal: false
+    category: "anchor-scheduling"
+    order: 2
+    description: |
+      Defines the time that `frequency_in_minutes` is "anchored" to, which Stitch will use to create the integration's replication schedule. In Stitch, this is referred to as [Anchor Scheduling]({{ link.replication.anchor-scheduling | prepend: site.baseurl }}).
+
+      This field must contain an [ISO 8601-compliant](https://en.wikipedia.org/wiki/ISO_8601){:target="new"} date. **Note**: When Stitch stores this value, it will be in UTC. You should provide this value in UTC to ensure the desired anchor time is retained.
+
+      {{ site.data.connect.common.all-sources.guide-callout | flatify }}
+    short: |
+      Defines the time that `frequency_in_minutes` is "anchored" to, which Stitch will use to create the integration's replication schedule.
+
+      This field must contain an [ISO 8601-compliant](https://en.wikipedia.org/wiki/ISO_8601){:target="new"} date. **Note**: When Stitch stores this value, it will be in UTC. You should provide this value in UTC to ensure the desired anchor time is retained.
+
+      For example: To anchor a schedule to `1:00PM EST`, the value could be something like `2018-04-30T17:00:00Z`
+    value: "2018-04-30T17:00:00Z"
+
+  - name: *frequency
+    type: "string"
+    required: false
+    internal: false
+    category: "interval-scheduling, anchor-scheduling"
+    order: 1
+    description: |
+      Defines how often, in minutes, Stitch should attempt to replicate data from {{ connection-name }}. Accepted values are:
+
+      {% if form-property.source-type == "database" %}
+      - `1`
+      {% endif %}
+      - `30`
+      - `60`
+      - `360`
+      - `720`
+      - `1440`
+
+      {{ site.data.connect.common.all-sources.guide-callout | flatify }}
+    short: |
+      Defines how often, in minutes, Stitch should attempt to replicate data from a source. Accepted values are:
+
+      - `1` (database sources only)
+      - `30`
+      - `60`
+      - `360`
+      - `720`
+      - `1440`
+    value: "{{ replication-frequency }}"
+
+  - name: *advanced
+    type: "string"
+    required: false
+    internal: false
+    category: "advanced-scheduling"
+    order: 3
+    description: |
+      {% if cron-scheduling == false %}
+      **Note: Advanced Scheduling using Cron is not yet supported for this source.** A value may be submitted for this property if the account is on an {{ site.data.stitch.subscription-plans.advanced.name }} or {{ site.data.stitch.subscription-plans.premium.name }} plan, but Stitch will not use the expression submitted.
+      {% endif %}
+
+      A valid Quartz cron expression representing the replication schedule for the integration. Refer to the [Advanced Scheduling documentation]({{ link.replication.advanced-scheduling | prepend: site.baseurl }}) for more info.
+
+      **Note**: If neither a `cron_expression` or `frequency_in_minutes` property is provided, Stitch will use the source's default `frequency_in_minutes` value (`{{ replication-frequency | remove: " " | remove: "minutes" | remove: "hours" }}`).
+
+      {{ site.data.connect.common.all-sources.guide-callout | flatify }}
+    short: |
+      A valid Quartz cron expression representing the replication schedule for the integration. This feature is only available to users on a Stitch {{ site.data.stitch.subscription-plans.advanced.name }} or {{ site.data.stitch.subscription-plans.premium.name }} plan.
+
+      **Note**: If neither a `cron_expression` or `frequency_in_minutes` property is provided, Stitch will use the source's default `frequency_in_minutes` value.
+    value: "0 0 12 ? * MON-FRI *"
+
+
+# start_date is in its own list because some non-SaaS sources also use it.
+# the logic for displaying form-properties will filter this property out
+# when it shouldn't be there: _includes/developers/api-form-property-fields-logic.html
+start-date:
+  - name: *start-date
+    type: "string"
+    required: true
+    internal: false
+    category: "extraction"
+    description: |
+      The date from which Stitch should begin replicating data from {{ connection-name }}. Data from this date forward will be replicated.
+
+      This field must contain an [ISO 8601-compliant](https://en.wikipedia.org/wiki/ISO_8601){:target="new"} date, and the timestamp must be midnight. For example: `2018-01-01T00:00:00Z`
+    value: "2018-01-10T00:00:00Z"
