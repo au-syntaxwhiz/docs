@@ -1,0 +1,19 @@
+---
+layout: none
+search: exclude
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% assign collections = site.collections | where:"output",true %}
+
+  {% for collection in collections %}
+    {% for doc in collection.docs %}
+      {% unless doc.search == "exclude" %}
+        <url>
+          <loc>{{ site.home }}{{ doc.url | prepend: site.baseurl }}</loc>
+        </url>
+      {% endunless %}
+    {% endfor %}
+  {% endfor %}
+</urlset>
