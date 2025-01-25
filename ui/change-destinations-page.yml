@@ -1,0 +1,34 @@
+## This file contains the field names and descriptions that appear
+## in the Destination Switching pages.
+
+
+# -------------------------- #
+#   Historical Data Fields   #
+# -------------------------- #
+
+default-fields:
+  new-data-only: &new-data-only "**Replicate new data only**"
+  historical-data: &historical-data "**Replicate historical data**"
+
+default-copy:
+  new-data-only: &new-data-only-copy |
+    Stitch will pick up where it left off and only replicate **new** data to your new destination.
+  historical-data-copy: &historical-data-copy |
+    Stitch will clear all Replication Key values, queue a **full re-replication** of your integrations' data, and replicate all historical data to your new destination. For SaaS integrations, Stitch will replicate data beginning with the **Start Date** currently listed in the integration's settings.
+
+          **Note**: This isn't applicable to webhook integrations. Historical data for webhooks must be replayed or manually backfilled after the switch is complete.
+
+default-historical-data:
+  - field: *new-data-only
+    copy: *new-data-only-copy
+
+  - field: *historical-data
+    copy: *historical-data-copy
+
+bigquery-historical-data:
+  - field: *new-data-only
+    copy: |
+      Select this option if you manually transferred your historical data or you don't need to re-replicate historical data. Stitch will pick up where it left off and only replicate **new** data to the new {{ destination.display_name }} destination.
+
+  - field: *historical-data
+    copy: *historical-data-copy

@@ -1,0 +1,150 @@
+# ------------------------------------------ #
+#  MYSQL-BACKED INTEGRATION SETTINGS FIELDS  #
+# ------------------------------------------ #
+
+## This file contains the names and descriptions of fields in the 
+## Integration Settings page for each MySQL-backed database integration.
+
+## Depending on the provider of the database (ex: RDS), some field names
+## or values will vary. See the lists below for specifics.
+
+## NOTE: 'defaults' is a variable assigned to this file: 
+## /_data/ui/database-integration-settings/default-fields.yml
+
+
+# -------------------------- #
+#         SSL FIELDS         #
+# -------------------------- #
+
+## NOTE: This is not currently supported for all MySQL-backed integrations.
+
+ssl:
+  - name: "SSL Certificate"
+    connect: "ssl_ca"
+    version: "all"
+    copy: |
+      The certificate (typically a CA or server certificate) Stitch should verify the SSL connection against. The connection will succeed only if the server's certifcate verifies against the certificate provided.
+
+            **Note**: Providing a certifcate via this property isn't required to use SSL. This is only if Stitch should verify the connection against a specific certificate.
+
+  - name: "Use an SSL client key"
+    connect: "ssl_client_auth_enabled"
+    copy: "If SSL client authentication should be used, check this box. This will display the **Client Certificate** and **Client Key** fields, which are both required when using client authentication."
+
+  - name: "Client Certificate"
+    connect: "ssl_cert"
+    copy: "If using SSL client authentication, paste the client certificate Stitch should use into this field. **Note**: You must also provide a **Client Key** for the connection to be successful."
+
+  - name: "Client Key"
+    connect: "ssl_key"
+    copy: "If using SSL client authentication, paste the client key Stitch should use into this field. **Note**: You must also provide a **Client Certificate** for the connection to be successful."
+
+
+# -------------------------- #
+#       VANILLA MYSQL        #
+# -------------------------- #
+
+mysql: &standard-fields
+  - &integration-name
+    name: &host-name "{{ site.data.ui.common.database-connections.field-names.integration-name }}"
+    version: "all"
+    copy: |
+      {{ site.data.ui.common.database-connections.field-copy.integration-name | flatify }}
+
+  - &host
+    name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.host | flatify }}"
+
+  - &port
+    name: "{{ site.data.ui.common.database-connections.field-names.port }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.port | flatify }}"
+
+  - &username
+    name: "{{ site.data.ui.common.database-connections.field-names.username }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.username | flatify }}"
+
+  - &password
+    name: "{{ site.data.ui.common.database-connections.field-names.password }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.password | flatify }}"
+
+  - &server-id
+    name: &server-id-name "Server ID"
+    version: "all"
+    copy: &server-id-copy |
+      **Optional**: Enter the unique server ID of instance you're connecting to Stitch.
+
+            This can be any numeric value within [MySQL's accepted server ID range](https://dev.mysql.com/doc/refman/8.0/en/replication-options.html){:target="new"}, as long as it's unique to the instance. For example: If in the [Retrieve Server IDs step](#server-id) there are servers with the IDs `192168010` and `1921680101`, you can enter any other numbers in this field.
+
+
+# -------------------------- #
+#      AURORA MYSQL RDS      #
+# -------------------------- #
+
+aurora-rds: &rds-fields
+  - *integration-name
+  - name: *host-name
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.host-rds | flatify }}"
+  - *port
+  - *username
+  - *password
+
+# -------------------------- #
+#           MAGENTO          #
+# -------------------------- #
+
+magento:
+  - *integration-name
+  - *host
+  - *port
+  - *username
+  - *password
+
+
+# -------------------------- #
+#           MARIADB          #
+# -------------------------- #
+
+mariadb: *standard-fields
+
+
+# -------------------------- #
+#          MYSQL RDS         #
+# -------------------------- #
+
+mysql-rds: *rds-fields
+
+
+# -------------------------- #
+#      CLOUDSQL MYSQL        #
+# -------------------------- #
+
+cloudsql-mysql:
+  - *integration-name
+  - name: *host-name
+    version: "all"
+    copy: |
+      {{ site.data.ui.common.database-connections.field-copy.host-cloudsql | flatify | replace:"[STEP]","the [previous step](#locate-database-connection-details)" }}
+  - *port
+  - *username
+  - *password
+  - *server-id
+
+
+# -------------------------- #
+#            AZURE           #
+# -------------------------- #
+
+microsoft-azure-mysql:
+  - *integration-name
+  - name: *host-name
+    version: "all"
+    copy: |
+      Paste the **Server name** you retrieved in the [previous step](#locate-connection-details). This should be similar to `<database-name>.mysql.database.azure.com`.
+  - *port
+  - *username
+  - *password

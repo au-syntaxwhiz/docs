@@ -1,0 +1,42 @@
+# ---------------------------- #
+#     SNOWFLAKE DESTINATION    #
+# ---------------------------- #
+
+## This file contains the names and descriptions of fields in the 
+## Destination Settings page for a Redshift-backed destination.
+
+field-names:
+  warehouse: &warehouse "Warehouse"
+  role: &role "Role"
+
+descriptions:
+  warehouse: &warehouse-description |
+    Enter the name of the {{ destination.display_name }} warehouse that you created for Stitch in [Step 1](#create-data-warehouse).
+  role: &role-description |
+    **Optional**: Enter the name of the role the Stitch database user should use.
+
+
+# -------------------------- #
+#           FIELDS           #
+# -------------------------- #
+
+snowflake:
+  - name: "{{ site.data.ui.destination-settings.common.field-names.display-name }}"
+    copy: "{{ site.data.ui.destination-settings.common.field-copy.display-name | flatify }}"
+    
+  - name: "{{ site.data.ui.destination-settings.common.field-names.description }}"
+    copy: "{{ site.data.ui.destination-settings.common.field-copy.description | flatify }}"
+
+  - name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    copy: |
+      Enter the URL of your {{ destination.display_name }} account. For example: `stitch.snowflakecomputing.com`. **Note**: Entering the `http://` or `https://` portion of the URL will prevent a successful connection.
+  - name: "{{ site.data.ui.common.database-connections.field-names.username }}"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.username | flatify }}"
+  - name: "{{ site.data.ui.common.database-connections.field-names.password }}"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.password | flatify }}"
+  - name: "{{ site.data.ui.common.database-connections.field-names.database }}"
+    copy: "Enter the name of the database you created for Stitch in [Step 2.1](##create-snowflake-database)."
+  - name: *warehouse
+    copy: *warehouse-description
+  - name: *role
+    copy: *role-description

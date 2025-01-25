@@ -1,0 +1,61 @@
+# ------------------------------------------ #
+#  ORACLE-BACKED INTEGRATION SETTINGS FIELDS #
+# ------------------------------------------ #
+
+## This file contains the names and descriptions of fields in the 
+## Integration Settings page for each Oracle-backed database integration.
+
+## Depending on the provider of the database (ex: RDS), some field names
+## or values will vary. See the lists below for specifics.
+
+
+# -------------------------- #
+#           ORACLE           #
+# -------------------------- #
+
+oracle:
+  - &integration-name
+    name: "{{ site.data.ui.common.database-connections.field-names.integration-name }}"
+    version: "all"
+    copy: |
+      {{ site.data.ui.common.database-connections.field-copy.integration-name | flatify }}
+
+  - &host
+    name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.host | flatify }}"
+
+  - &port
+    name: "{{ site.data.ui.common.database-connections.field-names.port }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.port | flatify }}"
+
+  - &username
+    name: "{{ site.data.ui.common.database-connections.field-names.username }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.username | flatify }}"
+
+  - &password
+    name: "{{ site.data.ui.common.database-connections.field-names.password }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.password | flatify }}"
+
+  - &system-id
+    name: "Oracle System ID (SID)"
+    version: "all"
+    copy: "Enter the Oracle System ID (SID) of the database you retrieved in [Step 5](#retrieve-oracle-system-id)."
+
+
+# -------------------------- #
+#         ORACLE-RDS         #
+# -------------------------- #
+
+oracle-rds:
+  - *integration-name
+  - name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    copy: |
+      {{ site.data.ui.common.database-connections.field-copy.host-rds | flatify }}
+  - *port
+  - *username
+  - *password
+  - *system-id

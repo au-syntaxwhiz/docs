@@ -1,0 +1,115 @@
+# --------------------------------------------- #
+#  POSTGRES-BACKED INTEGRATION SETTINGS FIELDS  #
+# --------------------------------------------- #
+
+## This file contains the names and descriptions of fields in the 
+## Integration Settings page for each Postgres-backed database integration.
+
+## Depending on the provider of the database (ex: RDS), some field names
+## or values will vary. See the lists below for specifics.
+
+
+field-names:
+  schema-names-tables: &schema-names-tables-name "Include PostgreSQL schema names in destination tables"
+
+
+# -------------------------- #
+#      VANILLA POSTGRES      #
+# -------------------------- #
+
+postgres:
+  - &integration-name
+    name: "{{ site.data.ui.common.database-connections.field-names.integration-name }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.integration-name | flatify }}"
+
+  - &host
+    name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.host | flatify }}"
+
+  - &port
+    name: "{{ site.data.ui.common.database-connections.field-names.port }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.port | flatify }}"
+
+  - &username
+    name: "{{ site.data.ui.common.database-connections.field-names.username }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.username | flatify }}"
+
+  - &password
+    name: "{{ site.data.ui.common.database-connections.field-names.password }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.password | flatify }}"
+
+  - &database
+    name: "{{ site.data.ui.common.database-connections.field-names.database }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.database | flatify }}"
+
+  - &schema-name
+    name: *schema-names-tables-name
+    version: "1,2"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.schema-names-tables | flatify }}"
+
+# -------------------------- #
+#      CLOUDSQL POSTGRES     #
+# -------------------------- #
+
+cloudsql-postgres:
+  - *integration-name
+  - name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    version: "all"
+    copy: |
+      {{ site.data.ui.common.database-connections.field-copy.host-cloudsql | flatify | replace:"[STEP]","the [previous step](#locate-database-connection-details)" }}
+  - *port
+  - *username
+  - *password
+  - *database
+  - *schema-name
+
+
+# -------------------------- #
+#           HEROKU           #
+# -------------------------- #
+
+heroku:
+  - *integration-name
+  - name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    version: "all"
+    copy: "Paste the **Host** address from the {{ integration.display_name }} Database Settings page into this field."
+  - *port
+  - name: "{{ site.data.ui.common.database-connections.field-names.username }}"
+    version: "all"
+    copy: "Paste the **User** name from the {{ integration.display_name }} Database Settings page into this field."
+  - name: "{{ site.data.ui.common.database-connections.field-names.password }}"
+    version: "all"
+    copy: "Paste the **Password** from the {{ integration.display_name }} Database Settings page into this field."
+  - name: "{{ site.data.ui.common.database-connections.field-names.database }}"
+    version: "all"
+    copy: "Paste the **Database** name from the {{ integration.display_name }} Database Settings page into this field."
+  - *schema-name
+
+
+# -------------------------- #
+#        POSTGRES RDS        #
+# -------------------------- #
+
+postgresql-rds: &rds-fields
+  - *integration-name
+  - name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    version: "all"
+    copy: "{{ site.data.ui.common.database-connections.field-copy.host-rds | flatify }}"
+  - *port
+  - *username
+  - *password
+  - *database
+  - *schema-name
+
+
+# -------------------------- #
+#    AURORA POSTGRES RDS     #
+# -------------------------- #
+
+aurora-postgresql-rds: *rds-fields

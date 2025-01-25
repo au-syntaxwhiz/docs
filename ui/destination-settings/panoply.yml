@@ -1,0 +1,28 @@
+# ---------------------------- #
+#      PANOPLY DESTINATION     #
+# ---------------------------- #
+
+## This file contains the names and descriptions of fields in the 
+## Destination Settings page for a Panoply-backed destination.
+
+panoply:
+  - name: "{{ site.data.ui.destination-settings.common.field-names.display-name }}"
+    copy: "{{ site.data.ui.destination-settings.common.field-copy.display-name | flatify }}"
+    
+  - name: "{{ site.data.ui.destination-settings.common.field-names.description }}"
+    copy: "{{ site.data.ui.destination-settings.common.field-copy.description | flatify }}"
+
+  - name: "{{ site.data.ui.common.database-connections.field-names.host }}"
+    copy: "Paste the **Host** value from the {{ destination.display_name }} Connect page."
+
+  - name: "{{ site.data.ui.common.database-connections.field-names.port }}"
+    copy: "Paste the **Port** value from the {{ destination.display_name }} Connect page."
+
+  - name: "{{ site.data.ui.common.database-connections.field-names.username }}"
+    copy: "Paste the **Username** value from the {{ destination.display_name }} Connect page."
+
+  - name: "{{ site.data.ui.common.database-connections.field-names.password }}"
+    copy: "Enter the password for the {{ destination.display_name }} database user."
+
+  - name: "{{ site.data.ui.common.database-connections.field-names.database }}"
+    copy: "Paste the **Database** value from the {{ destination.display_name }} Connect page."
