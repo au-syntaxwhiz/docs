@@ -1,0 +1,247 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "apply_discount_on": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "apply_on": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "archived_at": {
+      "type": [
+        "null",
+        "date-time"
+      ]
+    },
+    "created_at": {
+      "type": [
+        "null",
+        "date-time"
+      ]
+    },
+    "currency_code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "discount_amount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "discount_percentage": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "discount_type": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "duration_month": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "duration_type": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "invoice_name": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "invoice_notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "item_constraint_criteria": {
+      "items": {
+        "properties": {
+          "currencies": {
+            "items": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "item_family_ids": {
+            "items": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "item_price_periods": {
+            "items": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "item_type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        },
+        "type": [
+          "null",
+          "object"
+        ]
+      },
+      "type": [
+        "null",
+        "array"
+      ]
+    },
+    "item_constraints": {
+      "items": {
+        "properties": {
+          "constraint": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "item_price_ids": {
+            "items": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "item_type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        },
+        "type": [
+          "null",
+          "object"
+        ]
+      },
+      "type": [
+        "null",
+        "array"
+      ]
+    },
+    "max_redemptions": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "meta_data": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "name": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "object": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "period": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "period_unit": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "redemptions": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "resource_version": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "status": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "updated_at": {
+      "type": [
+        "null",
+        "date-time"
+      ]
+    },
+    "valid_till": {
+      "type": [
+        "null",
+        "date-time"
+      ]
+    }
+  },
+  "type": [
+    "null",
+    "object"
+  ]
+}
