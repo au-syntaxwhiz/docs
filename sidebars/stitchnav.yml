@@ -1,0 +1,488 @@
+# This controls the sidebar navigation. The code in _includes/layout/sidebar.html loops through each section here and formats it appropriately.
+
+all-docs:
+- title: sidebar
+  categories:
+
+  - title: Getting started
+    sections:
+      - title: "Basic concepts & system overview"
+        url: "{{ link.getting-started.basic-concepts }}"
+
+      - title: "Select a data pipeline region"
+        url: "{{ link.security.supported-operating-regions }}"
+
+      - title: "Set up your Stitch data pipeline"
+        url: "{{ link.getting-started.onboarding }}"
+
+      - title: "Understand your Stitch row usage"
+        url: "{{ link.getting-started.row-usage }}"
+
+      - title: "Connect other data sources"
+        url: "{{ link.integrations.other-data-sources }}"
+
+      - title: "All Getting started"
+        url: "{{ link.getting-started.category }}"
+
+  - title: Account management
+    sections:
+    - title: Manage your account
+      subsections:
+        - title: "Change your email and password"
+          url: "{{ link.account.email-password }}"
+
+        - title: "Manage your email notifications"
+          url: "{{ link.account.manage-notification-settings }}"
+
+        - title: "Update company details"
+          url: "{{ link.account.account-settings }}#update-company-information"
+
+        - title: "Identify your data pipeline region"
+          url: "{{ link.security.supported-operating-regions }}#identify-data-pipeline-region"
+
+        - title: "Manage your API keys"
+          url: "{{ link.account.manage-api-keys }}"
+
+        - title: "Manage Stitch partner access"
+          url: "{{ link.account.manage-partner-access }}"
+
+        - title: "Manage Single Sign-on (SSO)"
+          url: "{{ link.security.single-sign-on }}"
+
+        - title: Cancel your account
+          url: "{{ link.account.cancel-account }}"
+
+    - title: "Manage your team"
+      subsections:
+        - title: "Role-Based Access Control (RBAC)"
+          url: "{{ link.account.team-members }}#role-based-access-control"
+        - title: "Team member basics"
+          url: "{{ link.account.team-members }}#team-member-basics"
+
+        - title: "Team member roles & permissions"
+          url: "{{ link.account.team-roles-permissions }}"
+
+        - title: "Add a team member"
+          url: "{{ link.account.team-members }}#invite-team-member"
+
+        - title: "Add a team member to multiple accounts"
+          url: "{{ link.account.team-members }}#add-to-multiple-accounts"
+
+        - title: "Update a team member's role"
+          url: "{{ link.account.team-members }}#update-team-member-role"  
+
+        - title: "Deactivate a team member"
+          url: "{{ link.account.team-members }}#deactivate-team-member"
+
+        - title: "Manage Single Sign-on (SSO)"
+          url: "{{ link.security.single-sign-on }}"
+
+    - title: Notifications
+      subsections:
+        - title: "Urgency levels"
+          url: "{{ link.account.notification-settings }}#notification-levels"
+
+        - title: "Categories"
+          url: "{{ link.account.notification-settings }}#notification-categories"
+
+        - title: "In-app"
+          url: "{{ link.account.notification-settings }}#in-app-notifications"
+
+        - title: "Email"
+          url: "{{ link.account.notification-settings }}#email-notifications"
+
+        - title: "Reference"
+          url: "{{ link.account.notification-settings }}#notification-reference"
+
+        - title: "Manage your email notifications"
+          url: "{{ link.account.manage-notification-settings }}"
+
+        - title: "Notification extensions"
+          url: "{{ link.account.customize-notifications }}"
+
+        - title: "Post-load notifications"
+          url: "{{ link.account.post-load-notifications }}"
+
+        - title: "HIPAA-compliance"
+          url: "{{ link.account.hipaa-notifications }}"
+
+    - title: Billing
+      subsections:
+        - title: Understand your usage
+          url: "{{ link.getting-started.row-usage }}"
+
+        - title: "Basics"
+          url: "{{ link.billing.billing-faq }}#billing-basics"
+
+        - title: "Integrations"
+          url: "{{ link.billing.billing-faq }}#integrations"
+
+        - title: "Historical data loads"
+          url: "{{ link.billing.billing-faq }}#historical-data-loads"
+
+        - title: "Row counts"
+          url: "{{ link.billing.billing-faq }}#row-usage"
+
+        - title: "Choose and change plans"
+          url: "{{ link.billing.billing-faq }}#manage-plans"
+
+        - title: "Payment details and invoices"
+          url: "{{ link.billing.billing-faq }}#payment-invoices"
+
+        - title: Cancel your account
+          url: "{{ link.account.cancel-account }}"
+
+    - title: Upgraded plans
+      url: "{{ link.account.enterprise-features }}"
+
+    - title: All Account management
+      url: /account-security/
+
+  - title: "Security"
+    sections:
+      - title: "Environment"
+        url: "{{ link.security.faq }}#environment"
+
+      - title: "Data access policies"
+        url: "{{ link.security.faq }}#stitch-access"
+
+      - title: "PII stored by Stitch"
+        url: "{{ link.security.faq }}#stitch-pii-stored"
+
+      - title: "Access control"
+        subsections:
+          - title: "Stitch account access"
+            url: "{{ link.security.faq }}#account-access"
+
+          - title: "Connectivity"
+            url: "{{ link.security.faq }}#connectivity"
+
+          - title: "Connection permissions"
+            url: "{{ link.security.faq }}#permissions"
+
+      - title: "Compliance"
+        url: "{{ link.security.faq }}#stitch-compliance"
+
+      - title: "Encryption"
+        url: "{{ link.security.faq }}#stitch-encryption"
+
+      - title: "Processing and retention"
+        subsections:
+          - title: "Processing"
+            url: "{{ link.security.faq }}#data-processing"
+
+          - title: "Data pipeline regions"
+            url: "{{ link.security.supported-operating-regions }}"
+
+          - title: "Retention"
+            url: "{{ link.security.faq }}#data-retention"
+
+      - title: "Protocols and recommendations"
+        url: "{{ link.security.faq }}#stitch-protocols-recommendations"
+
+      - title: "Issue reporting and handling"
+        url: "{{ link.security.faq }}#security-issues"
+
+      - title: "All Security"
+        url: "/security"
+
+  - title: Destinations
+    sections:
+    - title: Overview
+      url: "{{ link.destinations.main }}"
+
+    - title: Amazon Redshift
+      url: "/destinations/amazon-redshift"
+
+    - title: "Amazon S3"
+      url: "/destinations/amazon-s3"
+
+    - title: "Databricks Delta Lake"
+      url: "/destinations/databricks-delta"
+
+    - title: "data world"
+      url: "/destinations/data-world"
+
+    - title: Google BigQuery
+      url: "/destinations/google-bigquery/v1"
+
+    - title: Google BigQuery v2
+      url: "/destinations/google-bigquery/v2"
+
+    - title: "Microsoft Azure Synapse Analytics"
+      url: "/destinations/microsoft-azure-synapse-analytics"
+
+    - title: "Microsoft SQL Server"
+      url: "/destinations/microsoft-sql-server"
+
+    - title: "MySQL"
+      url: "/destinations/mysql"
+
+    - title: Panoply
+      url: "/destinations/panoply"
+
+    - title: PostgreSQL
+      url: "/destinations/postgresql"
+
+    - title: Snowflake
+      url: "/destinations/snowflake"
+
+    - title: "Guides"
+      anchor: "guides--destinations"
+      subsections:
+        - title: "Choosing a destination"
+          url: "{{ link.destinations.overviews.choose-destination }}"
+
+        - title: "Destination and integration compatibility"
+          url: "{{ link.destinations.overviews.compatibility }}"
+
+        - title: Change destinations
+          url: "{{ link.destinations.switch-destinations }}"
+
+        - title: Multiple destinations
+          url: "{{ link.destinations.multiple-destinations }}"  
+
+  - title: Integrations
+    sections:
+      - title: SaaS
+        type: "saas-integrations"
+        filter: "input"
+        subsections:
+          - title: "Overview"
+            url: "{{ link.integrations.saas }}"
+
+      - title: Databases
+        type: "database-integrations"
+        filter: "show-in-menus"
+        subsections:
+          - title: Overview
+            url: "{{ link.integrations.databases }}"
+
+      - title: Webhooks
+        type: "webhook-integrations"
+        filter: "input"
+        subsections:
+          - title: Overview
+            url: "{{ link.integrations.webhooks }}"
+
+      - title: All integrations
+        url: "{{ link.integrations.main }}"
+
+      - title: "Connection cloning"
+        url: "{{ link.integrations.connection-cloning }}"  
+
+      - title: "Connect other data sources"
+        url: "{{ link.integrations.other-data-sources }}"
+
+  - title: Extracting data
+    sections:
+    - title: Selecting data
+      subsections:
+        - title: Selecting tables and columns 
+          url: "{{ link.replication.syncing }}"
+
+        - title: Replicating new and additional columns
+          url: "{{ link.replication.syncing-new-columns }}"
+
+        - title: Database views
+          url: "{{ link.replication.db-views }}"
+
+        - title: Historical SaaS data
+          url: "{{ link.replication.saas-historical }}"
+
+        - title: Supported data types
+          url: "{{ link.replication.supported-data-types }}"
+
+    - title: Replication scheduling
+      subsections:
+        - title: "Overview"
+          url: "{{ link.replication.rep-scheduling }}"
+
+        - title: "Replication Frequency"
+          url: "{{ link.replication.rep-frequency }}"
+
+        - title: "Anchor Scheduling"
+          url: "{{ link.replication.anchor-scheduling }}"
+
+        - title: "Advanced Scheduling using Cron"
+          url: "{{ link.replication.advanced-scheduling }}"
+
+    - title: Replication Methods
+      subsections:
+        - title: Overview
+          url: "{{ link.replication.rep-methods }}"
+
+        - title: "Log-based Incremental"
+          url: "{{ link.replication.log-based-incremental }}"
+
+        - title: "Key-based Incremental"
+          url: "{{ link.replication.key-based-incremental }}"
+
+        - title: Full Table
+          url: "{{ link.replication.full-table }}"
+
+    - title: Replication Keys
+      subsections:
+        - title: Database Replication Keys
+          url: "{{ link.replication.rep-keys }}"
+
+        - title: MongoDB Replication Keys
+          url: "{{ link.replication.mongo-rep-keys }}"
+
+        - title: Resetting Replication Keys
+          url: "{{ link.replication.reset-rep-keys }}"
+
+    - title: Deleted record handling
+      subsections:
+        - title: "Deletion methods"
+          url: "{{ link.replication.deleted-records }}"
+
+        - title: "Log-based Incremental"
+          url: "{{ link.replication.deleted-records }}#log-based-incremental"
+
+        - title: "Key-based Incremental"
+          url: "{{ link.replication.deleted-records }}#key-based-incremental"
+
+        - title: "Full Table"
+          url: "{{ link.replication.deleted-records }}#full-table"
+
+    - title: Monitoring progress
+      subsections:
+        - title: Progress summary
+          url: "{{ link.replication.rep-progress }}"
+
+        - title: Extraction Logs
+          url: "{{ link.replication.extraction-logs }}"
+
+        - title: Loading Reports
+          url: "{{ link.replication.loading-reports }}"
+
+  - title: Loading data
+    sections:
+      - title: "Understanding loading behavior"
+        url: "{{ link.destinations.storage.loading-behavior }}"
+
+      - title: Understanding schema structure
+        subsections:
+          - title: "Overview"
+            url: "{{ link.destinations.storage.stitch-schema }}"
+
+          - title: "Terminology"
+            url: "{{ link.destinations.storage.stitch-schema }}#schema-terminology"
+
+          - title: "Schema names"
+            url: "{{ link.destinations.storage.stitch-schema }}#integration-schema-names"
+
+          - title: "Schema composition"
+            url: "{{ link.destinations.storage.stitch-schema }}#integration-schema-composition"
+
+          - title: "Table schemas"
+            url: "{{ link.destinations.storage.stitch-schema }}#integration-table-schemas"
+
+          - title: "System tables and columns"
+            url: "{{ link.destinations.storage.system-tables-and-columns }}"
+
+      - title: "Handling nested data structures"
+        subsections:
+          - title: "Google BigQuery destinations"
+            url: "{{ link.destinations.storage.bigquery-nested-structures }}"
+
+          - title: "Non-BigQuery destinations"
+            url: "{{ link.destinations.storage.nested-structures }}"
+
+      - title: Loading behavior references
+        subsections:
+          - title: "Amazon Redshift"
+            url: "{{ link.destinations.loading.redshift }}"
+
+          - title: "Google BigQuery"
+            url: "{{ link.destinations.loading.bigquery-v1 }}"
+
+          - title: "Google BigQuery v2"
+            url: "{{ link.destinations.loading.bigquery-v2 }}"
+
+          - title: "Microsoft SQL Server"
+            url: "{{ link.destinations.loading.microsoft-sql-server }}"
+
+          - title: "Panoply"
+            url: "{{ link.destinations.loading.panoply }}"
+
+          - title: "PostgreSQL"
+            url: "{{ link.destinations.loading.postgres }}"
+
+          - title: "Snowflake"
+            url: "{{ link.destinations.loading.snowflake }}"
+
+          - title: "All guides"
+            url: "{{ link.destinations.loading.overview }}"
+
+      - title: Monitoring loading
+        url: "{{ link.replication.loading-reports }}"
+
+      - title: Pipeline monitoring
+        url: "{{ link.replication.pipeline-monitoring }}"  
+
+      - title: "Guides"
+        anchor: "guides--loading"
+        subsections:
+          - title: "Understanding loading behavior"
+            url: "{{ link.destinations.storage.loading-behavior }}"
+      
+          - title: Querying append-only tables
+            url: "{{ link.replication.append-only-querying }}"
+
+          - title: Resolving record rejections
+            url: "{{ link.destinations.storage.rejected-records }}"
+
+      - title: "References"
+        subsections:
+          - title: "Loading behavior types"
+            url: "{{ link.destinations.storage.loading-behavior }}"
+
+          - title: "Reserved keywords"
+            url: "{{ link.destinations.storage.reserved-keywords.overview }}"
+
+          - title: "System tables and columns"
+            url: "{{ link.destinations.storage.system-tables-and-columns }}"    
+
+  - title: Analysis tools
+    sections:
+    - title: Analytics tools
+      url: /analysis-tools#analytics-tools
+
+    - title: SQL editors
+      url: /analysis-tools#sql-editors
+
+    - title: Data science
+      url: /analysis-tools#data-science
+
+  - title: Troubleshooting
+    sections:
+    - title: Account and billing
+      url: /troubleshooting/account
+
+    - title: Destinations
+      url: /troubleshooting/destinations
+
+    - title: Integrations
+      url: /troubleshooting/integrations
+
+    - title: Replication
+      url: /troubleshooting/replication
+
+    - title: Data discrepancies
+      url: /troubleshooting/data-discrepancies
+
+    - title: Error notifications
+      url: /troubleshooting/error-notifications
+
+    - title: All Troubleshooting
+      url: /troubleshooting/
+
+  - title: Developers
+    drop-down: false
+    url: "{{ link.developers }}"
+
+  - title: "Changelog"
+    drop-down: false
+    url: "{{ link.changelog.main }}"

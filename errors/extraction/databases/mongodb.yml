@@ -1,0 +1,171 @@
+# -------------------------- #
+#  MongoDB Extraction Errors #
+# -------------------------- #
+
+## This file contains the extraction errors that can arise 
+## while replicating data from a MongoDB-backed database.
+
+raw-error:
+  replication-key-type: &rep-key-type "[DATA_TYPE] is not a supported replication key type"
+
+  local-not-authorized: &local-not-authorized "not authorized on local to execute command { [COMMAND] }"
+
+  blacklist-id: &blacklist-id "Projection blacklists key property id"
+
+  projection-inclusion-exclusion: &projection-inclusion-exclusion "Projection cannot have a mix of inclusion and exclusion."
+  
+  invalid-json: &invalid-json "The projection: [PROJECTION_QUERY] for stream [COLLECTION_NAME] is not valid json"
+
+# '[VALUE]' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+
+  oplog-age-out: &oplog-age-out |
+    Clearing state because Oplog has aged out
+    Must complete full table sync before starting oplog replication for [COLLECTION_NAME]
+
+
+documentation:
+  projection-queries: &projection-queries
+    category: "Projection queries"
+    category-doc: "{{ link.integrations.mongodb-projection-queries | prepend: site.baseurl }}"
+
+  replication-keys: &replication-keys
+    category: "Replication Keys"
+    category-doc: "{{ link.replication.mongo-rep-keys | prepend: site.baseurl }}"
+
+all:
+## Projection query excludes _id field
+  - message: *blacklist-id
+    id: "projection-blacklisted-id"
+    applicable-to: &all-mongo "MongoDB v1+-backed database integrations"
+    level: "critical"
+    <<: *projection-queries
+    version: "1,2"
+    summary: "Projection query excludes the collection's _id field"
+    cause: |
+      A projection query for a collection set to replicate is excluding the collection's `_id` field.
+
+      For example:
+
+      ```json
+      { "_id": 0 }
+      ```
+    fix-it: |
+      Modify the collection's projection query to remove the exclusion of the `_id` field. Stitch requires the `_id` field for replication; excluding it in projection queries is not supported.
+
+      Refer to the [Selecting MongoDB Fields Using Projection Queries guide]({{ link.integrations.mongodb-projection-queries | prepend: site.baseurl }}) for more info.
+
+# Projection query contains inclusion and exclusion criteria
+  - message: *projection-inclusion-exclusion
+    id: "projection-inclusion-exclusion"
+    applicable-to: *all-mongo
+    level: "critical"
+    <<: *projection-queries
+    version: "1,2"
+    summary: "Projection query contains inclusion and exclusion statements"
+    cause: |
+      A projection query for a collection set to replicate includes both inclusion and exclusion statements. MongoDB doesn't currently support inclusion and exclusion statements in the same projection query.
+
+      The following projection query is an example of including both types of statements:
+
+      ```json
+      { "name": 1, "type": 0 }
+      ```
+
+    fix-it: |
+      Modify the collection's projection query to use only inclusion or only exclusion statements. For example:
+
+      ```json
+      { "name": 1, "type": 1 }
+      ```
+
+      ```json
+      { "name": 0, "type": 0 }
+      ```
+
+      Refer to the [Selecting MongoDB Fields Using Projection Queries guide]({{ link.integrations.mongodb-projection-queries | prepend: site.baseurl }}) for more info and examples of projection queries.
+
+## Projection query is invalid JSON
+  - message: *invalid-json
+    id: "projection-invalid-json"
+    applicable-to: *all-mongo
+    level: "critical"
+    <<: *projection-queries
+    version: "1,2"
+    summary: "Projection query contains invalid JSON"
+    cause: |
+      A projection query for a collection set to replicate isn't valid JSON. A projection query is a JSON object; keys within the object must be enclosed in double quotes (`"`).
+
+      For example: The following projection queries are invalid JSON:
+
+      ```json
+      { 'name': 1, 'type': 1 }
+      ```
+
+      ```json
+      "name: 1, "type": 1
+      ```
+    fix-it: |
+      Modify the collection's projection query to be valid JSON. For example:
+
+      ```json
+      { "name": 1, "type": 1 }
+      ```
+
+      You can use [JSONFormatter](https://jsonformatter.curiousconcept.com/){:target="new"} to validate the projection query before entering it into Stitch.
+
+## Unsupported Replication Key type
+  - message: *rep-key-type
+    id: "unsupported-rep-key-type"
+    applicable-to: *all-mongo
+    level: "critical"
+    <<: *replication-keys
+    version: "1,2"
+    summary: "Incompatible data type for Replication Key"
+    cause: |
+      A Replication Key field contains an incompatible data type.
+
+      [Stitch requires MongoDB Replication Key fields](https://github.com/singer-io/tap-mongodb/blob/master/tap_mongodb/sync_strategies/common.py#L77){:target="new"} to be one of the following data types:
+
+      {% assign supported-key-types = site.data.taps.extraction.replication-methods.key-based-incremental.allowed-data-types | sort_natural:"type" %}
+
+      {% for data-type in supported-key-types %}
+      {% if data-type.integration contains "All" or data-type.integration contains "MongoDB" %}
+      - `{{ data-type.type | upcase }}`
+      {% endif %}
+      {% endfor %}
+    fix-it: |
+      - Select a different Replication Key for the collection, or
+      - Convert the data to a supported Replication Key data type, if possible
+
+## Database user not authorized on local
+  - message: *local-not-authorized
+    id: "local-not-authorized"
+    applicable-to: *all-mongo
+    level: "critical"
+    category: "Database user privileges"
+    version: "1,2"
+    summary: "Insufficient privileges on local database"
+    cause: |
+      The Stitch MongoDB database user isn't authorized to execute commands on the `local` database. This is required to successfully replicate data.
+    fix-it: |
+      Grant the Stitch MongoDB database user `read` access to the `local` database. Refer to the guide for your MongoDB type for instructions:
+
+      {% for integration in applicable-integrations %}
+      - [{{ integration.display_name }}]({{ integration.url | prepend: site.baseurl | append: "/v2" | append: "#create-a-database-user" }})
+      {% endfor %}
+
+  - message: *oplog-age-out
+    id: "oplog-age-out-full-table-replication"
+    applicable-to: *all-mongo
+    level: "info"
+    category: "Log-based Incremental Replication"
+    category-doc: |
+      {{ link.replication.log-based-incremental | prepend: site.baseurl | append: "#limitation--log-retention" }}
+    version: "1,2"
+    summary: "Insufficient maximum OpLog size"
+    cause: |
+      The OpLog's maximum size is insufficient, causing log files to age out before Stitch can replicate them. When this occurs, Stitch will clear the saved log position ID for any affection collection(s) and re-replicate them in full.
+    fix-it: |
+      Increase the maximum size of the OpLog using the [replSetResizeOplog](https://docs.mongodb.com/v4.0/reference/command/replSetResizeOplog/#dbcmd.replSetResizeOplog){:target="new"} command.
+
+      **Note**: As the maximum size you need depends on your database, it may take some experimentation to identify the best setting. Mongo doesn't currently recommend an OpLog size.

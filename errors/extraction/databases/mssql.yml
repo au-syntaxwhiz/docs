@@ -1,0 +1,73 @@
+# -------------------------- #
+#   MSSQL Extraction Errors  #
+# -------------------------- #
+
+## This file contains the extraction errors that can arise 
+## while replicating data from a MSSQL-backed database.
+
+raw-error:
+  ct-not-enabled-for-table: &ct-not-enabled-for-table "Cannot sync stream: [TABLE_NAME] using log-based replication. Change Tracking is not enabled for table: [TABLE_NAME]"
+  ct-not-enabled-for-database: &ct-not-enabled-for-database "Cannot sync stream: [TABLE_NAME] using log-based replication. Change Tracking is not enabled for database: [DATABASE_NAME]"
+  log-age-out: &log-age-out "CHANGE_TRACKING_MIN_VALID_VERSION has reported a value greater than current-log-version. Executing a full table sync."
+
+all:
+# Change tracking not enabled for database
+  - message: *ct-not-enabled-for-database
+    id: "ct-not-enabled-for-database"
+    applicable-to: &all-mssql "Microsoft SQL Server v1-backed database integrations"
+    level: "critical"
+    category: &log-based-category "Log-based Incremental Replication"
+    category-doc: |
+      {{ link.replication.log-based-incremental | prepend: site.baseurl }}
+    version: "1"
+    summary: "Change tracking isn't enabled for a database"
+    cause: |
+      Change Tracking is not enabled for the named database, which contains tables that are set to replicate and use Log-based Incremental Replication in Stitch.
+    fix-it: |
+      Enable Change Tracking for the database referenced in the error message. To use Change Tracking, you must enabled it both at the database and table level.
+
+      To enable Change Tracking for the database, log into your database and run the following statement, replacing `<database_name>` with the name of the database:
+
+      ```sql
+      {{ site.data.taps.extraction.database-setup.server-settings.mssql.enable-change-tracking-for-database | strip }}
+      ```
+
+# Change tracking not enabled for table
+  - message: *ct-not-enabled-for-table
+    id: "ct-not-enabled-for-table"
+    applicable-to: *all-mssql
+    level: "critical"
+    category: *log-based-category
+    category-doc: |
+      {{ link.replication.log-based-incremental | prepend: site.baseurl }}
+    version: "1"
+    summary: "Change tracking isn't enabled for a table"
+    cause: |
+      Change tracking is not enabled for the named table, which is set to replicate and use Log-based Incremental Replication.
+    fix-it: |
+      Enable change tracking for the table referenced in the error message. To use Change Tracking, you must enabled it both at the database and table level. Microsoft SQL Server requires that Change Tracking be enabled for every table you want to use Log-based Incremental for.
+
+      To enable Change Tracking for the table, log into your database and run the following statement, replacing `<schema_name>.<table_name>` with the names of the schema and table:
+
+      ```sql
+      {{ site.data.taps.extraction.database-setup.server-settings.mssql.enable-change-tracking-for-table | strip }}
+      ```
+
+      Run the statement for every table you want to replicate using Log-based Incremental Replication.
+
+# Log has aged out
+  - message: *log-age-out
+    id: "log-aged-out"
+    applicable-to: *all-mssql
+    level: "info"
+    category: *log-based-category
+    category-doc: |
+      {{ link.replication.log-based-incremental | prepend: site.baseurl }}
+    version: "1"
+    summary: "Insufficient log retention settings"
+    cause: |
+      The log retention settings for the database are insufficient, causing log files to age out before Stitch can replicate them. When this occurs, Stitch will clear the saved log position ID for any affection table(s) and re-replicate them in full.
+    fix-it: |
+      Increase the database's `CHANGE_RETENTION` setting. Stitch recommends a minimum of 3 days, but 7 days is preferred. This ensures that you have time to resolve any issues that arise before logs age out and are purged. Refer to [Microsoft's documentation](https://docs.microsoft.com/en-us/sql/relational-databases/track-changes/enable-and-disable-change-tracking-sql-server?view=sql-server-ver15){:target="new"} for more info about this setting.
+
+      In addition, make sure you resolve any connection or replication issues quickly. This will reduce the likelihood that binary log files will age out and cause this error.
