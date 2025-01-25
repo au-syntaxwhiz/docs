@@ -1,0 +1,10 @@
+# -------------------------- #
+#     FRESHDESK VERSIONS     #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "March 1, 2017"
+    # date-last-connection:

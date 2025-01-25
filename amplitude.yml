@@ -1,0 +1,10 @@
+# -------------------------- #
+#     AMPLITUDE VERSIONS     #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "August 29, 2018"
+    # date-last-connection:

@@ -1,0 +1,19 @@
+# -------------------------- #
+#     USING THIS TEMPLATE    #
+# -------------------------- #
+
+## NEED HELP USING THIS TEMPLATE? SEE:
+## https://docs-about-stitch-docs.netlify.com/reference/integration-templates/integration-versions/
+## FOR INSTRUCTIONS & REFERENCE INFO
+
+
+# --------------------------- #
+#   ACTIVECAMPAIGN VERSIONS   #
+# --------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "February 8, 2022"
+    # date-last-connection:

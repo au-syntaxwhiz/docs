@@ -1,0 +1,11 @@
+# -------------------------- #
+#    HELP SCOUT VERSIONS     #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "July 30, 2019"
+    # date-last-connection:
+    sunset-date: 

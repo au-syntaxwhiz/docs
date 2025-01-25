@@ -1,0 +1,10 @@
+# -------------------------- #
+#  HARVEST FORECAST VERSIONS #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "September 18, 2018"
+    # date-last-connection:

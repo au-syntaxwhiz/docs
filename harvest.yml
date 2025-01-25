@@ -1,0 +1,18 @@
+# -------------------------- #
+#     HARVEST VERSIONS       #
+# -------------------------- #
+
+latest-version: "2"
+
+released-versions:
+  - number: "2"
+    date-released: "August 30, 2018"
+    # date-last-connection:
+    sunset-date:
+
+  - number: "1"
+    status: "sunset"
+    date-released: "April 25, 2017"
+    date-last-connection: "August 29, 2018"
+    deprecation-date: "November 28, 2018"
+    sunset-date: "December 1, 2019"

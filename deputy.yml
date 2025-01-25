@@ -1,0 +1,10 @@
+# -------------------------- #
+#       DEPUTY VERSIONS      #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "September 26, 2019"
+    # date-last-connection:

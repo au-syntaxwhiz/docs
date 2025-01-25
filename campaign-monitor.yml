@@ -1,0 +1,10 @@
+# -------------------------- #
+#  CAMPAIGN MONITOR VERSIONS #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "October 1, 2018"
+    # date-last-connection:

@@ -1,0 +1,15 @@
+# -------------------------- #
+#  GOOGLE ANALYTICS VERSIONS #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "March 30, 2020"
+    # date-last-connection:
+
+  - number: "14-09-2016"
+    deprecation-date: "March 30, 2020"
+    date-released: "September 14, 2016"
+    date-last-connection: "October 29, 2020"

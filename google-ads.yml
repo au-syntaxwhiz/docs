@@ -1,0 +1,10 @@
+# -------------------------- #
+#     GOOGLE ADS VERSIONS    #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "April 4, 2022"
+    # date-last-connection:
