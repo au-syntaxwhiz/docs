@@ -1,0 +1,47 @@
+# --------------------------------------- #
+# AZURE SQL DW DESTINATION STITCH DETAILS #
+# --------------------------------------- #
+
+# Details about Stitch's implementation &
+# requirements for Microsoft Azure Synapse Analytics destinations.
+
+
+# ------------------------------ #
+#       GENERAL DETAILS          #
+# ------------------------------ #
+
+pricing-tier: "Standard"
+
+supported-versions: "n/a"
+
+available-in-connect: true
+
+api-type: "azure_sqldw"
+
+loader-name: "SQLDW"
+
+stitch-supported-regions:
+  - id: "north-america"
+  - id: "europe"
+
+
+# ------------------------------ #
+#      CONNECTION METHODS        #
+# ------------------------------ #
+
+ssl: true
+
+connect-ssl: false ## Indicates whether SSL can be configured via the API
+
+ssh: true
+
+vpn: false
+
+static-ip: true
+
+
+# ------------------------------ #
+#    WORKLOAD PERFORMANCE MGMT   #
+# ------------------------------ #
+
+workload-performance-management: false

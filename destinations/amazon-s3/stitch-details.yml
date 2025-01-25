@@ -1,0 +1,45 @@
+# ------------------------------ #
+#    AMAZON S3 STITCH DETAILS    #
+# ------------------------------ #
+
+# Details about Stitch's implementation &
+# requirements for Amazon S3 destinations.
+
+
+# ------------------------------ #
+#       GENERAL DETAILS          #
+# ------------------------------ #
+
+# This is equal to minimum-plan
+pricing-tier: "Standard"
+
+# stitch-plan-availability: "all"
+
+supported-versions: "n/a"
+
+available-in-connect: true
+
+api-type: "s3"
+
+loader-name: "S3"
+
+stitch-supported-regions:
+  - id: "north-america"
+  - id: "europe"
+
+workload-performance-management: "n/a"
+
+
+# ------------------------------ #
+#      CONNECTION METHODS        #
+# ------------------------------ #
+
+ssl: "n/a"
+
+connect-ssl: false ## Indicates whether SSL can be configured via the API
+
+ssh: "n/a"
+
+vpn: "n/a"
+
+static-ip: true
