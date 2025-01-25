@@ -1,0 +1,85 @@
+# -------------------------- #
+#   MSSQL User Privileges    #
+# -------------------------- #
+
+## The permissions Stitch needs to connect to and replicate data from a MSSQL database.
+
+defaults:
+  names:
+    select: &select-name "SELECT"
+    view-change-tracking: &view-change-tracking-name "VIEW CHANGE TRACKING"
+
+  reasons:
+    select: &select-reason "Required to select rows from tables in a database."
+    view-change-tracking: &view-change-tracking-reason |
+      **Required to use Log-based Incremental Replication.** Required to obtain change tracking information from tables where change tracking is enabled.
+
+  doc-links:
+    select: &select-doc "https://docs.microsoft.com/en-us/sql/t-sql/statements/grant-object-permissions-transact-sql?view=sql-server-2017"
+    view-change-tracking: &view-change-tracking-doc "https://docs.microsoft.com/en-us/sql/relational-databases/track-changes/manage-change-tracking-sql-server?view=sql-server-2017"
+
+# -------------------------- #
+#      MSSQL PRIVILEGES      #
+# -------------------------- #
+
+mssql:
+  - name: *select-name
+    reason: *select-reason
+    doc-link: *select-doc
+
+  - name: *view-change-tracking-name
+    reason: *view-change-tracking-reason
+    doc-link: *view-change-tracking-doc
+
+# -------------------------- #
+#    MSSQL RDS PRIVILEGES    #
+# -------------------------- #
+
+sql-server-rds:
+  - name: *select-name
+    reason: *select-reason
+    doc-link: *select-doc
+
+  - name: *view-change-tracking-name
+    reason: *view-change-tracking-reason
+    doc-link: *view-change-tracking-doc
+
+# -------------------------- #
+#      AZURE PRIVILEGES      #
+# -------------------------- #
+
+microsoft-azure:
+  - name: *select-name
+    reason: *select-reason
+    doc-link: *select-doc
+
+  - name: *view-change-tracking-name
+    reason: *view-change-tracking-reason
+    doc-link: *view-change-tracking-doc
+
+# -------------------------- #
+#         SQL COMMANDS       #
+# -------------------------- #
+
+create-login-command: |
+  CREATE LOGIN <stitch_login> WITH PASSWORD='<password>';
+
+create-user-command: |
+  CREATE USER <stitch_username> FOR LOGIN <stitch_login>;
+  GO
+
+grant-select-on-table: |
+  GRANT SELECT ON <schema_name>.<table_name> TO <stitch_username>;
+  GO
+
+revoke-select: |
+  REVOKE SELECT FROM <stitch_username>
+  GO
+
+grant-select-command:
+  all-tables: |
+    GRANT SELECT TO <stitch_username>
+
+  change-tracking-tables: |
+    GRANT VIEW CHANGE TRACKING ON <schema_name>.<table_name> TO <stitch_username>;
+    GO

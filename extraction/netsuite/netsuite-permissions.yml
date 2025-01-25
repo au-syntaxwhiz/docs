@@ -1,0 +1,865 @@
+# -------------------------- #
+#    NETSUITE PERMISSIONS    #
+# -------------------------- #
+
+# This file contains the permissions required by Stitch's NetSuite integration.
+# Reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_N3236764.html#Permission-Names-and-IDs
+
+required:
+  - name: "Custom Body Fields"
+    tab: &setup "Setup"
+    version: "all"
+
+  - name: "Custom Fields"
+    tab: *setup
+    version: "all"
+
+  - name: "Custom Record Types"
+    tab: *setup
+    version: "all"
+
+  - name: "Log in using Access Tokens"
+    tab: *setup
+    level: "Full"
+    version: "1"
+
+  - name: "User Access Tokens"
+    tab: *setup
+    level: "Full"
+    version: "1"
+
+  - name: "Deleted Records"
+    tab: *setup
+    level: "Full"
+    version: "all"
+
+  - name: "SOAP Web Services"
+    tab: *setup
+    level: "Full"
+    version: "all"
+  
+  - name: "User Access Token"
+    tab: *setup
+    level: "Full"
+    version: "2"
+
+
+# -------------------------- #
+#      OBJECT PERMISSIONS    #
+# -------------------------- #
+
+## ACCOUNT
+Account:
+  permission:
+    tab:  *lists
+    name: "Accounts"
+
+## ACCOUNTING PERIOD
+AccountingPeriod:
+  permission:
+    tab: *setup
+    name: "Manage Accounting Periods"
+
+  feature-requirements:
+    - tab: "Accounting"
+      name: "Accounting Periods"
+
+## ADDRESS
+Address:
+  permission:
+    tab: "Lists"
+    name: "[Parent Record Permission]"
+
+# APP DEFINITION
+AppDefinition:
+  permission:
+    tab: *setup
+    name: &int-app "Integration Application"
+
+# APP PACKAGE
+AppPackage:
+  permission:
+    tab: *setup
+    name: *int-app
+
+## BILLING ACCOUNT
+BillingAccount:
+  permission:
+    tab: "Lists"
+    name: "Customers"
+
+  feature-requirements:
+    - tab: "Accounting"
+      name: "Billing Accounts"
+
+## BILLING SCHEDULE
+BillingSchedule:
+  permission:
+    tab: *lists
+    name: "Billing Schedules"
+
+  feature-requirements:
+    - tab: &accounting-tab "Accounting"
+      name: "Advanced Billing"
+      description: "(Required for any billing schedule type)"
+    - tab: *accounting-tab
+      name: "Project Management"
+      description: "(Required for Charge-based, Fix-bid interval, Fixed-bid milestone, and Time and materials billing schedules)"
+    - tab: *accounting-tab
+      name: "Charge-based Billing"
+      description: "(Required for Charge-based billing schedules)"
+
+## BIN
+Bin:
+  permission:
+    tab: "Lists"
+    name: "Bins"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Bin Management"
+
+## BOM
+Bom: &bom
+  permission:
+    tab: "Lists"
+    name: "Bill of Materials"
+
+  feature-requirements:
+    - tab: "Inventory & Items"
+      name: "Advanced Bill of Materials"
+
+## BOM REVISION
+BomRevision: *bom
+
+## BUDGET
+Budget:
+  permission:
+    tab: "Lists"
+    name: "Set Up Budgets"
+
+## CALENDAR EVENT
+CalendarEvent:
+  permission:
+    tab: "Lists"
+    name: "Calendar"
+
+## CAMPAIGN
+Campaign:
+  permission:
+    tab: "Lists"
+    name: "Marketing Campaigns"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Marketing Automation"
+
+## CHARGE
+Charge:
+  permission:
+    tab: "Transactions"
+    name: "Charge"
+
+  feature-requirements:
+    - tab: "Transactions"
+      name: "Charge-Based Billing"
+
+## CLASSIFICATION
+Classification:
+  permission:
+    tab: "Lists"
+    name: "[Parent Record Permission]"
+
+## CONSOLIDATED EXCHANGE RATE
+ConsolidatedExchangeRate:
+  permission:
+    tab: "Lists"
+    name: "Currency"
+
+  feature-requirements:
+    - name: "{{ integration.display_name }} OneWorld"
+
+## CONTACT
+Contact:
+  permission:
+    tab: "Lists"
+    name: "Contacts"
+
+## CONTACT CATEGORY
+ContactCategory:
+  permission:
+    tab: "Setup"
+    name: "CRM Lists"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Customer Relationship Management"
+
+## CONTACT ROLE
+ContactRole:
+  permission:
+    tab: "Setup"
+    name: "CRM Lists"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Customer Relationship Management"
+
+## COST CATEGORY
+CostCategory:
+  permission:
+    tab: "Setup"
+    name: "Accounting Lists"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Standard Costing"
+      description: ", or"
+
+    - tab: "Items & Inventory"
+      name: "Landed Cost"
+
+## COUPON CODE
+CouponCode:
+  permission:
+    tab: "Lists"
+    name: "Promotion"
+
+  feature-requirements:
+    - tab: "Transactions"
+      name: "Promotion Codes"
+
+## CURRENCY RATE
+CurrencyRate:
+  permission:
+    tab: "Lists"
+    name: "Currency"
+
+## CUSTOM RECORDS
+CustomRecord:
+  permission:
+    tab: "Setup"
+    name: "Custom Record Types"
+
+## CUSTOMER
+Customer:
+  permission:
+    tab: "Lists"
+    name: "Customers"
+
+## CUSTOMER CATEGORY
+CustomerCategory:
+  permission:
+    tab: "Setup"
+    name: "Accounting Lists"
+
+## CUSTOMER MESSAGE
+CustomerMessage:
+  permission:
+    tab: "Setup"
+    name: "Accounting Lists"
+
+## CUSTOMER STATUS
+CustomerStatus:
+  permission:
+    tab: "Setup"
+    name: "Customer Status"
+
+CustomerSubsidiaryRelationship:
+  permission: &subsidiaries-permission
+    tab: "Lists"
+    name: "Subsidiaries"
+
+  feature-requirements:
+    - tab: "Multi-Subsidiary Customer"
+      name: "Company"
+    
+
+## CUSTOM LIST
+CustomList:
+  permission:
+    tab: "Setup"
+    name: "Custom Lists"
+
+## DELETED
+Deleted:
+  permission:
+    tab: "Setup"
+    name: "Deleted Records"
+    level: "Full"
+
+## DEPARTMENT
+Department:
+  permission:
+    tab: "Lists"
+    name: "Departments"
+
+## EMPLOYEE
+Employee:
+  permission:
+    tab: "Lists"
+    name: "Employees"
+
+## ENTITY GROUP
+EntityGroup:
+  permission:
+    tab: "Lists"
+    name: "CRM Groups"
+
+## EXPENSE CATEGORY
+ExpenseCategory:
+  permission:
+    tab: "Lists"
+    name: "Expense Categories"
+
+## FAIR VALUE PRICE
+FairValuePrice:
+  permission:
+    tab: "Lists"
+    name: "Fair Value Price"
+
+  feature-requirements:
+    - tab: "Accounting"
+      name: "Advanced Revenue Management"
+
+## FILE
+File:
+  permission:
+    tab: "Lists"
+    name: "Documents and Files"
+
+## FOLDER
+Folder:
+  permission:
+    tab: "Lists"
+    name: "Documents and Files"
+
+## GIFT CERTIFICATE
+GiftCertificate:
+  permission:
+    tab: "Lists"
+    name: "Items"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Gift Certificates"
+
+## GLOBAL ACCOUNT MAPPING
+GlobalAccountMapping:
+  permission:
+    tab: "Setup"
+    name: "Global Account Mapping"
+
+  feature-requirements:
+    - name: "{{ integration.display_name }} OneWorld"
+    - tab: "Accounting"
+      name: "Multi-Book Accounting"
+    - tab: "Accounting"
+      name: "Chart of Accounts Mapping"
+
+## HCMJOB
+HcmJob:
+  permission:
+    tab: "Lists"
+    name: "HCMJob Management"
+
+  feature-requirements:
+    - tab: "Employees"
+      name: "Job Management"
+
+## INBOUND SHIPMENT
+InboundShipment:
+  permission:
+    tab: "Lists"
+    name: "Inbound Shipment"
+
+  feature-requirements:
+    - tab: "Transactions"
+      name: "Inbound Shipment Management"
+
+## INVENTORY NUMBER
+InventoryNumber:
+  permission:
+    tab: "Lists"
+    name: "Items"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Serialized Inventory or Lot Tracking"
+
+## ISSUE
+Issue:
+  permission:
+    tab: "Lists"
+    name: "Issues"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Issue Management"
+
+## ITEM
+Item:
+  permission:
+    tab: "Lists"
+    name: "[Item Type]"
+    description: ", where **[Item Type]** is a [supported item type](#supported-item-types),"
+
+## ITEM ACCOUNT MAPPING
+ItemAccountMapping:
+  permission:
+    tab: "Setup"
+    name: "Item Account Mapping"
+
+  feature-requirements:
+    - name: "NetSuite OneWorld"
+    - tab: "Accounting"
+      name: "Multi-Book Accounting"
+    - tab: "Accounting"
+      name: "Chart of Accounts Mapping"
+
+## ITEM DEMAND PLAN
+ItemDemandPlan:
+  permission:
+    tab: "Lists"
+    name: "Item Demand Plan"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Demand Planning"
+
+## ITEM REVISION
+ItemRevision:
+  permission:
+    tab: "Lists"
+    name: "Item Revisions"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Assembly Items"
+
+## ITEM SUPPLY PLAN
+ItemSupplyPlan:
+  permission:
+    tab: "Lists"
+    name: "Item Supply Plan"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Demand Planning"
+
+## JOB
+Job:
+  permission:
+    tab: "Lists"
+    name: "Projects"
+
+  feature-requirements:
+    - tab: "Company"
+      name: "Projects"
+
+## JOB STATUS
+JobStatus:
+  permission:
+    tab: "Lists"
+    name: "Projects"
+
+  feature-requirements:
+    - tab: "Company"
+      name: "Projects"
+
+## JOB TYPE
+JobType:
+  permission:
+    tab: "Lists"
+    name: "Projects"
+
+  feature-requirements:
+    - tab: "Company"
+      name: "Projects"
+
+## LOCATION
+Location:
+  permission:
+    tab: "Lists"
+    name: "Locations"
+
+  feature-requirements:
+    - tab: "Company"
+      name: "Locations"
+
+## MANUFACTURING COST TEMPLATE
+ManufacturingCostTemplate:
+  permission:
+    tab: "Lists"
+    name: "Manufacturing Cost Template"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Manufacturing Routing and Work Center"
+
+## MANUFACTURING OPERATION TASK
+ManufacturingOperationTask:
+  permission:
+    tab: "Transactions"
+    name: "Work Orders"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Manufacturing Routing and Work Center"
+
+## MANUFACTURING ROUTING
+ManufacturingRouting:
+  permission:
+    tab: "Lists"
+    name: "Manufacturing Routing"
+
+  feature-requirements:
+    - tab: "Items & Inventory"
+      name: "Manufacturing Routing and Work Center"
+
+MerchandiseHierarchyNode:
+  permission:
+    tab: "Setup"
+    name: "Merchandise Hierarchy Node"
+
+## MESSAGE
+Message:
+  permission:
+    tab: "Lists"
+    name: "Track Messages"
+
+## NEXUS
+Nexus:
+  permission:
+    tab: "Lists"
+    name: "Tax Items"
+
+  feature-requirements:
+    - tab: "Tax"
+      name: "Advanced Taxes"
+
+## NOTE
+Note:
+  permission:
+    tab: "Lists"
+    name: "Notes Tab"
+
+## NOTE TYPE
+NoteType:
+  permission:
+    tab: "Setup"
+    name: "CRM Lists"
+
+## OPPORTUNITY
+Opportunity:
+  permission:
+    tab: "Transactions"
+    name: "Opportunity"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Opportunities"
+
+## ORIGINATING LEAD
+OriginatingLead:
+  permission:
+    tab: "Lists"
+    name: "Customers"
+
+## OTHER NAME CATEGORY
+OtherNameCategory:
+  permission:
+    tab: "Setup"
+    name: "Accounting Lists"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Sales Force Automation"
+
+## PARTNER
+Partner:
+  permission:
+    tab: "Lists"
+    name: "Partners"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Partner Relationship Management"
+
+## PARTNER CATEGORY
+PartnerCategory:
+  permission:
+    tab: "Setup"
+    name: "CRM Lists"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Partner Relationship Management"
+
+## PAYCHECK
+Paycheck:
+  permission:
+    tab: "Transactions"
+    name: "Individual Paycheck"
+
+  feature-requirements:
+    - tab: "Employees"
+      name: "Payroll"
+
+## PAYMENT METHOD
+PaymentMethod:
+  permission:
+    tab: "Lists"
+    name: "Payment Methods"
+
+## PAYROLL ITEM
+PayrollItem:
+  permission:
+    tab: "Lists"
+    name: "Payroll Items"
+
+  feature-requirements:
+    - tab: "Employees"
+      name: "Payroll"
+
+## PHONE CALL
+PhoneCall:
+  permission:
+    tab: "Lists"
+    name: "Phone Call"
+
+## PRICE LEVEL
+PriceLevel:
+  permission:
+    tab: "Setup"
+    name: "Accounting Lists"
+
+## PRICING GROUP
+PricingGroup:
+  permission:
+    tab: "Setup"
+    name: "Accounting Lists"
+
+## PROJECT TASK
+ProjectTask:
+  permission:
+    tab: "Lists"
+    name: "Project Tasks"
+
+  feature-requirements:
+    - tab: "Company"
+      name: "Project Management"
+
+## PROMOTION CODE
+PromotionCode:
+  permission:
+    tab: "Lists"
+    name: "Promotions"
+
+  feature-requirements:
+    - tab: "Transactions"
+      name: "Promotion Codes"
+
+## RESOURCE ALLOCATION
+ResourceAllocation:
+  permission:
+    tab: "Lists"
+    name: "Resource Allocations"
+
+  feature-requirements:
+    - tab: "Accounting"
+      name: "Advanced Accounting > Revenue Recognition"
+
+## REVENUE RECOGNITION SCHEDULE
+RevRecSchedule:
+  permission:
+    tab: "Lists"
+    name: "Revenue Recognition Schedules"
+
+  feature-requirements:
+    - tab: "Accounting"
+      name: "Advanced Accounting > Revenue Recognition"
+
+## REVENUE RECOGNITION TEMPLATE
+RevRecTemplate:
+  permission:
+    tab: "Lists"
+    name: "Revenue Recognition Schedules"
+
+  feature-requirements:
+    - tab: "Accounting"
+      name: "Advanced Accounting > Revenue Recognition"
+
+## SALES ROLE
+SalesRole:
+  permission:
+    tab: "Lists"
+    name: "Sales Roles"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Team Selling"
+
+## SALES TAX ITEM
+SalesTaxItem:
+  permission:
+    tab: "Lists"
+    name: "Tax Items"
+
+## SITE CATEGORY
+SiteCategory:
+  permission:
+    tab: "Lists"
+    name: "Presentation Categories"
+
+FeatureRequirements:
+  - tab: "Web Presence"
+    name: "Web Site"
+
+## SOLUTION
+Solution:
+  permission:
+    tab: "Lists"
+    name: "Knowledge Base"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Knowledge Base"
+
+## SUBSIDIARY
+Subsidiary:
+  permission: *subsidiaries-permission
+  feature-requirements:
+    - name: "{{ integration.display_name }} OneWorld"
+
+## SUPPORT CASE
+SupportCase:
+  permission:
+    tab: "Lists"
+    name: "Cases"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Case Management"
+
+## TASK
+Task:
+  permission:
+    tab: "Lists"
+    name: "Project Tasks"
+
+  feature-requirements:
+    - tab: "Company"
+      name: "Project Management"
+
+## TAX GROUP
+TaxGroup:
+  permission:
+    tab: "Lists"
+    name: "Tax Groups"
+
+## TAX TYPE
+TaxType:
+  permission:
+    tab: "Lists"
+    name: "Tax Groups"
+
+## TERM
+Term:
+  permission:
+    tab: "Transactions"
+    name: "Customer Payment"
+
+## TIME BILL
+TimeBill:
+  permission:
+    tab: "Transactions"
+    name: "Track Time"
+
+  feature-requirements:
+    - tab: "Employees"
+      name: "Time Tracking"
+
+## TIME ENTRY
+TimeEntry:
+  permission:
+    tab: "Transactions"
+    name: "Track Time"
+
+  feature-requirements:
+    - tab: "Employees"
+      name: "Time Sheets"
+
+## TIMESHEET
+TimeSheet:
+  permission:
+    tab: "Transactions"
+    name: "Track Time"
+
+  feature-requirements:
+    - tab: "Employees"
+      name: "Timesheets"
+
+## TOPIC
+Topic:
+  permission:
+    tab: "Lists"
+    name: "Knowledge Base"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Knowledge Base"
+
+## TRANSACTION
+Transaction:
+  permission:
+    tab: "Transactions"
+    name: "[Transaction Type]"
+    description: ", where **[Transaction Type]** is a [supported transaction type](#supported-transaction-types),"
+
+## UNITS TYPE
+UnitsType:
+  permission:
+    tab: "Lists"
+    name: "Units"
+
+  feature-requirements:
+    - tab: "Company"
+      name: &uom "Multiple Units of Measure"
+    - tab: "Accounting"
+      name: *uom
+
+## USAGE
+Usage:
+  permission:
+    tab: "Lists"
+    name: "Subscriptions"
+
+  feature-requirements:
+    - name: "SuiteBilling"
+
+## VENDOR
+Vendor:
+  permission:
+    tab: "Lists"
+    name: "Vendors"
+
+VendorSubsidiaryRelationship:
+  permission: *subsidiaries-permission
+
+## VENDOR CATEGORY
+VendorCategory:
+  permission:
+    tab: "Setup"
+    name: "Accounting Lists"
+
+
+## WIN LOSS REASON
+WinLossReason:
+  permission:
+    tab: "Transactions"
+    name: "Opportunity"
+
+  feature-requirements:
+    - tab: "CRM"
+      name: "Opportunities"
