@@ -1,0 +1,10 @@
+# -------------------------- #
+#     USERVOICE VERSIONS     #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "September 19, 2018"
+    # date-last-connection:

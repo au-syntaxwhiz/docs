@@ -1,0 +1,17 @@
+# -------------------------- #
+#      SHOPIFY VERSIONS      #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "January 2, 2019"
+    # date-last-connection:
+
+  - number: "15-10-2015"
+    status: "sunset"
+    date-released: "October 15, 2015"
+    date-last-connection: "January 2, 2019"
+    deprecation-date: "January 14, 2019"
+    sunset-date: "April 15, 2019"

@@ -1,0 +1,19 @@
+# -------------------------- #
+#      SQUARE VERSIONS       #
+# -------------------------- #
+
+latest-version: "2"
+
+released-versions:
+  - number: "2"
+    date-released: "July 19, 2023"
+    # date-last-connection:  
+
+  - number: "1"
+    date-released: "August 27, 2020"
+    # date-last-connection:  
+
+  - number: "04-05-2016"
+    deprecation-date: "August 27, 2020"
+    date-released: "May 4, 2016"
+    date-last-connection: "October 1, 2020" 

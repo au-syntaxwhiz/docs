@@ -1,0 +1,10 @@
+# -------------------------- #
+#      TABOOLA VERSIONS      #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "April 25, 2017"
+    # date-last-connection:

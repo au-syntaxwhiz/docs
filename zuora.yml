@@ -1,0 +1,17 @@
+# -------------------------- #
+#        ZUORA VERSIONS      #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "April 17, 2018"
+    # date-last-connection:
+
+  - number: "15-10-2015"
+    status: "sunset"
+    date-released: "October 15, 2015"
+    date-last-connection: "April 16, 2018"
+    deprecation-date: "September 1, 2018"
+    sunset-date: "September 1, 2018"

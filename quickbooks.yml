@@ -1,0 +1,19 @@
+# -------------------------- #
+#     QUICKBOOKS VERSIONS    #
+# -------------------------- #
+
+latest-version: "2"
+
+released-versions:
+  - number: "2"
+    date-released: "November 30, 2022"
+    # date-last-connection:
+
+  - number: "1"
+    date-released: "September 3, 2020"
+    # date-last-connection:
+
+  - number: "21-12-2015"
+    deprecation-date: "September 3, 2020"
+    date-released: "June 27, 2018"
+    date-last-connection: "October 27, 2020"

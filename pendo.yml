@@ -1,0 +1,10 @@
+# -------------------------- #
+#       PENDO VERSIONS       #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "July 26th, 2023"
+    # date-last-connection:

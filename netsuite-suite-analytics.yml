@@ -1,0 +1,10 @@
+# ------------------------------ #
+#   NETSUITE ANALYTICS VERSIONS  #
+# ------------------------------ #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "June 4, 2020" # Full release: September 2, 2020
+    # date-last-connection:

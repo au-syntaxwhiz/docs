@@ -1,0 +1,11 @@
+# -------------------------- #
+#   [INTEGRATION] VERSIONS   #
+# -------------------------- #
+
+latest-version: ""
+
+released-versions:
+  - number: ""
+    status: ""
+    date-released: ""
+    # date-last-connection:

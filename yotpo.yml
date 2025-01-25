@@ -1,0 +1,37 @@
+# -------------------------- #
+#       YOTPO VERSIONS       #
+# -------------------------- #
+
+latest-version: "2"
+
+released-versions:
+  - number: "2"
+    date-released: "September 20, 2019"
+    # date-last-connection: ""
+
+  - number: "1"
+    date-released: "August 9, 2018"
+    # date-last-connection: ""
+
+
+# -------------------------- #
+#       YOTPO CHANGELOG      #
+# -------------------------- #
+
+# Changelog entry types:
+# - new-release
+# - version-deprecation
+# - schema-change
+# - maintenance
+# - new-data
+# - feature-support
+# - provider-deprecation
+
+# Depending on the entry type, some initial copy and a pre-defined
+# Summary heading might display.
+
+changelog-entries:
+  - date: "August 9, 2018"
+    version: "1"
+    type: "new-version"
+    content: ""

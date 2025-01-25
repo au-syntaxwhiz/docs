@@ -1,0 +1,62 @@
+# -------------------------- #
+#       STRIPE VERSIONS      #
+# -------------------------- #
+
+latest-version: "3"
+
+released-versions:
+  - number: "3"
+    date-released: "August 29, 2023"
+    # date-last-connection:
+
+  - number: "2"
+    date-released: "June 20, 2022"
+    # date-last-connection:
+
+  - number: "1"
+    date-released: "December 1, 2018"
+    # date-last-connection:
+
+  - number: "27-02-2015"
+    status: "sunset"
+    date-released: "February 27, 2015"
+    date-last-connection: "December 10, 2018"
+    deprecation-date: "January 14, 2019"
+    sunset-date: "April 15, 2019"
+
+
+# -------------------------- #
+#      STRIPE CHANGELOG      #
+# -------------------------- #
+
+# Changelog entry types:
+# - new-release
+# - version-deprecation
+# - schema-change
+# - maintenance
+# - new-data
+
+# Depending on the entry type, some initial copy and a pre-defined
+# Summary heading might display.
+
+changelog-entries:
+  - date: "December 10, 2018"
+    version: "1"
+    type: "new-release"
+    content: |
+      Highlights include:
+
+      - Table/field selection
+      - Removed `stripe_` prefix on table names
+      - Extraction logs
+      - Loading reports
+      - New tables:
+         - `invoice_line_items`
+         - `subscription_items`
+         - `subscription_line_items`
+         - `payouts` (replaces `transfer_transactions`)
+
+  # - date: "October 4, 2018"
+  #   version: "27-02-2015"
+  #   type: "version-deprecation"
+  #   content: |

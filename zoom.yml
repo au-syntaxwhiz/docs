@@ -1,0 +1,23 @@
+# -------------------------- #
+#     USING THIS TEMPLATE    #
+# -------------------------- #
+
+## NEED HELP USING THIS TEMPLATE? SEE:
+## https://docs-about-stitch-docs.netlify.com/reference/integration-templates/integration-versions/
+## FOR INSTRUCTIONS & REFERENCE INFO
+
+
+# -------------------------- #
+#        ZOOM VERSIONS       #
+# -------------------------- #
+
+latest-version: "2"
+
+released-versions:
+  - number: "2" ## beta, released, deprecated
+    date-released: ""
+    # date-last-connection:
+
+  - number: "1" ## beta, released, deprecated
+    date-released: "July 28, 2020"
+    # date-last-connection:

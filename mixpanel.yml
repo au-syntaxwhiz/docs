@@ -1,0 +1,15 @@
+# -------------------------- #
+#     MIXPANEL VERSIONS      #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "June 2, 2020"
+    # date-last-connection: 
+
+  - number: "23-12-2015"
+    deprecation-date: "June 2, 2020"
+    date-released: "December 23, 2015"
+    date-last-connection: "October 1, 2020" 

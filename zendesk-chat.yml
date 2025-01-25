@@ -1,0 +1,15 @@
+# -------------------------- #
+#   ZENDESK CHAT VERSIONS    #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "November 15, 2022"
+    # date-last-connection:
+
+  - number: "17-12-2017"
+    deprecation-date: "November 15, 2022"
+    date-released: "April 25, 2017"
+    # date-last-connection:  

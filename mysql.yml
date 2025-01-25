@@ -1,0 +1,24 @@
+# -------------------------- #
+#       MYSQL VERSIONS       #
+# -------------------------- #
+
+# This is applicable to any MySQL-based database integration.
+# Ex: Amazon Aurora, MariaDB, etc.
+
+latest-version: "2"
+
+released-versions:
+  - number: "2"
+    date-released: "November 8, 2021"
+    # date-last-connection:
+      
+  - number: "1"
+    date-released: "October 24, 2017"
+    date-last-connection: "November 8, 2021"
+
+  - number: "15-10-2015"
+    status: "sunset"
+    date-released: "October 15, 2015"
+    date-last-connection: "October 24, 2017"
+    deprecation-date: "December 24, 2017"
+    sunset-date: "September 1, 2019"

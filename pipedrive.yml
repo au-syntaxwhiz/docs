@@ -1,0 +1,17 @@
+# -------------------------- #
+#     PIPEDRIVE VERSIONS     #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "June 18, 2018"
+    # date-last-connection:
+
+  - number: "05-10-2016"
+    status: "sunset"
+    date-released: "October 5, 2016"
+    date-last-connection: "June 17, 2018"
+    deprecation-date: "September 18, 2018"
+    sunset-date: "December 18, 2018"

@@ -1,0 +1,29 @@
+# -------------------------- #
+#      ORACLE VERSIONS       #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "August 1, 2018"
+    # date-last-connection:
+
+# -------------------------- #
+#      ORACLE CHANGELOG      #
+# -------------------------- #
+
+# Changelog entry types:
+# - new-release
+# - version-deprecation
+# - schema-change
+# - maintenance
+# - new-data
+
+# Depending on the entry type, some initial copy and a pre-defined
+# Summary heading might display.
+
+changelog-entries:
+  - date: "August 1, 2018"
+    version: "1"
+    type: "new-release"

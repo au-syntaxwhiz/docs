@@ -1,0 +1,25 @@
+# -------------------------- #
+#      POSTGRES VERSIONS     #
+# -------------------------- #
+
+latest-version: "2"
+
+tap-name: "PostgreSQL"
+
+released-versions:
+  - number: "2"
+    date-released: "March 5, 2021"
+    # full-release-date: "June 2, 2021"
+    # date-last-connection:
+
+  - number: "1"
+    date-released: "July 31, 2018"
+    date-last-connection: "June 2, 2021"
+    deprecation-date: "June 2, 2021"
+
+  - number: "15-10-2015"
+    status: "sunset"
+    date-released: "October 15, 2015"
+    date-last-connection: "July 30, 2018"
+    deprecation-date: "September 6, 2019"
+    sunset-date: "December 1, 2019"

@@ -1,0 +1,15 @@
+# -------------------------- #
+#     TYPEFORM VERSIONS      #
+# -------------------------- #
+
+latest-version: "2"
+
+released-versions:
+
+  - number: "2"
+    date-released: "September 29, 2022"
+    # date-last-connection:
+
+  - number: "1"
+    date-released: "January 16, 2019"
+    # date-last-connection:

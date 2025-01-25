@@ -1,0 +1,15 @@
+# -------------------------- #
+#      TRELLO VERSIONS       #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "June 10, 2020"
+    # date-last-connection:  
+    
+  - number: "15-12-2015"
+    deprecation-date: "June 10, 2020"
+    date-released: "December 21, 2015"
+    date-last-connection: "September 16, 2020"

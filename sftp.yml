@@ -1,0 +1,10 @@
+# -------------------------- #
+#       SFTP VERSIONS        #
+# -------------------------- #
+
+latest-version: "1"
+
+released-versions:
+  - number: "1"
+    date-released: "November 14, 2019"
+    # date-last-connection:
