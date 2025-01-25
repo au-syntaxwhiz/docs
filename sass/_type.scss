@@ -1,0 +1,87 @@
+html, body {
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	color: $protocol-black;
+	font-size: 15px;
+	font-family: $main-font;
+}
+
+.content-column {
+	line-height: 1.75;
+
+	p, ul {
+		margin: 0 0 1rem;
+	}
+}
+
+b, strong {
+	font-weight: 700;
+}
+
+h1, .h1 {
+	display: block;
+	font-size: 2.50rem;
+	margin-top: 3rem;
+	margin-bottom: 1rem;
+	line-height: 3.25rem;
+}
+
+h2, .h2 {
+	display: block;
+	font-size: 2rem;
+	margin-bottom: 1.5rem;
+	padding-top: 90px;
+	margin-top: -70px;
+}
+
+h3, .h3, .projectTitle {
+	display: block;
+	font-family: $main-font;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+h4, .h4 {
+	display: block;
+	font-family: $main-font;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+h5, .h5 {
+	display: block;
+	font-size: 1.1rem;
+	font-weight: 700;
+	font-family: $main-font;
+}
+
+/* make room for the nav bar */
+h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
+	scroll-margin-top: 180px;
+}
+
+.wf-loading h1
+.wf-loading h2
+.wf-loading h3 {
+	visibility: hidden;
+}
+
+.wf-loading h1
+.wf-loading h2
+.wf-loading h3 {
+	visibility: visible;
+}
+
+p.intro {
+	font-size: 1.15rem;
+}
+
+p.caption {
+	font-size: 13px;
+	padding-bottom: 15px;
+	color: $gray-4;
+}
+
+p.glossary-definition {
+	margin-left: 25px;
+}

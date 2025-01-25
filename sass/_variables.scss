@@ -1,0 +1,76 @@
+//----------------------------------
+// Reassigned Color Palette - Stitch
+//----------------------------------
+
+// Primary - Brand
+$stitch-yellow:                                   #0675c1;				// lochmara
+$protocol-black:                                  #202020;				// black
+$white:                                           #FFFFFF;
+
+// Secondary - Brand
+$blue-channel:                                    #0675c1;				// lochmara
+$bit-blue:                                        #66bdff;              // scooter
+$magenta-relay:                                   #82bd41;				// rio-grande
+$green-junction:                                  #82bd41;				// rio-grande
+$frequency-red:                                   #E96065;              // chestnut-rose
+
+$gray-signal:                                     #f2f2f2;              // concrete
+$gray-stream:                                     #EAEAEA;              // gallery
+$gray-byte:                                       #969696;              // gray
+$gray-batch:                                      #555555;              // dove
+$gray-border:									  #c6c6c6;              // silver
+$black:                                           #000000;
+$light-blue:                                      #66bdff;              // scooter
+
+$transparent:                                     rgba(255,255,255,0);
+
+//----------------------------------
+// Main Color Palette - Talend
+//----------------------------------
+
+
+$lochmara:                                        #0675c1;				// dark blue
+$rio-grande:                                      #82bd41;				// green
+$scooter:                                         #66bdff;				// light blue
+$chestnut-rose:                                   #E96065;				// pinky-orange
+$jaffa:                                           #EA8330;				// orange
+$lightning:                                       #f3c446;				// yellow-orange
+
+$wild-sand:                                       #F6F6F6;				// light grey
+$concrete:                                        #F2f2f2;
+$gallery:										  #EAEAEA;
+$alto:                                            #D5D5D5;
+$silver:                                          #C6C6C6;
+$silver-chalice:                                  #ABABAB;
+$gray:                                            #969696;
+$dark-silver:                                     #888888;
+$dove:                                            #555555;
+
+$background-blue:                                 #eff2f7;
+$background-green:                                #e7f0f4;
+
+
+//----------------------------------
+// Functional Colors
+//----------------------------------
+
+$gray-1:                                          $concrete;
+$gray-2:                                          $gallery;
+$gray-3:                                          $gray;
+$gray-4:                                          $silver-chalice;
+$gray-5:										  $dark-silver;
+
+$main-font:                                       'PT Sans', sans-serif;
+$fira:                                            'PT Sans', sans-serif;
+
+//----------------------------------
+// Widths
+//----------------------------------
+
+/* Mobile */
+// mobile breakpoint MUST be the same as the mobile-nav.js breakpoint
+$desktop-breakpoint: 700px;
+$larger-desktop-breakpoint: 900px;
+$even-larger-desktop-breakpoint: 1100px;
+/* Content width in Desktop */
+$max-width: 1020px;
